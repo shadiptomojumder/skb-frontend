@@ -1,7 +1,6 @@
 import axios from "axios";
-import * as dotenv from 'dotenv';
-dotenv.config();
-export const BaseURL = "https://lalon-server-production.up.railway.app/api";
+
+export const BaseURL = "http://localhost:5000/api/v1";
 
 export const api = axios.create({
     baseURL: BaseURL,

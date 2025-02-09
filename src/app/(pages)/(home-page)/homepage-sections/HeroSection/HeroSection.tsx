@@ -3,6 +3,7 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Banner5 from "../../../../../../public/banners/banner5.png";
 
+import GetAllProducts from "@/api/product/getAllProducts";
 import { Card, CardContent } from "@/components/ui/card";
 import {
     Carousel,
@@ -11,15 +12,22 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 
 const HeroSection = () => {
     const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: false }));
+    const { data: productList } = useQuery({
+        queryKey: ["productlist", "", ""],
+        queryFn: GetAllProducts,
+    });
+    console.log("productList:", productList);
+
     return (
-        <>
+        <section className="container mx-auto px-3 sm:px-0 md:pt-22 sm:pt-31 pt-26 pb-5">
             <Carousel
                 plugins={[plugin.current]}
-                className="w-full max-w-full px-40 py-4"
+                className="w-full max-w-full"
                 onMouseEnter={plugin.current.stop}
                 onMouseLeave={plugin.current.reset}>
                 <CarouselContent>
@@ -54,7 +62,7 @@ const HeroSection = () => {
                     ))}
                 </CarouselContent>
             </Carousel>
-        </>
+        </section>
     );
 };
 

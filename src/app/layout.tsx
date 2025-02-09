@@ -31,7 +31,7 @@ export default function RootLayout({
         <TanstackProvider>
           <div>
             <Header></Header>
-            <Navbar></Navbar>
+            {/* <Navbar></Navbar> */}
           </div>
           {children}</TanstackProvider>
       </body>
