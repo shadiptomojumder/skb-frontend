@@ -1,11 +1,8 @@
+import Header from "@/components/shared/Header";
 import TanstackProvider from "@/TanstackProvider/TanstackProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/dashboardComponents/app-sidebar";
-import { TopNavbar } from "@/components/dashboardComponents/top-navbar";
-
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -18,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "DASHBOARD SKB BEST",
+    title: "SKB BEST",
     description: "Get the best",
 };
 
@@ -31,13 +28,11 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <TanstackProvider>
-                <SidebarProvider>
-                    <AppSidebar />
-                    <SidebarInset>
-                        <TopNavbar />
-                        {children}
-                    </SidebarInset>
-                </SidebarProvider>
+                    <div>
+                        <Header></Header>
+                        {/* <Navbar></Navbar> */}
+                    </div>
+                    {children}
                 </TanstackProvider>
             </body>
         </html>
