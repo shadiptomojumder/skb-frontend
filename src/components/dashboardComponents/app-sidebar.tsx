@@ -14,6 +14,7 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar";
 import { SearchForm } from "./search-form";
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -24,7 +25,7 @@ const data = {
             items: [
                 {
                     title: "Add New Product",
-                    url: "#",
+                    url: "/dashboard/products/create",
                 },
                 {
                     title: "All Products",
@@ -41,34 +42,6 @@ const data = {
                 },
                 {
                     title: "Styling",
-                    url: "#",
-                },
-                {
-                    title: "Optimizing",
-                    url: "#",
-                },
-                {
-                    title: "Configuring",
-                    url: "#",
-                },
-                {
-                    title: "Testing",
-                    url: "#",
-                },
-                {
-                    title: "Authentication",
-                    url: "#",
-                },
-                {
-                    title: "Deploying",
-                    url: "#",
-                },
-                {
-                    title: "Upgrading",
-                    url: "#",
-                },
-                {
-                    title: "Examples",
                     url: "#",
                 },
             ],
@@ -166,7 +139,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                                 <SidebarMenuSubButton
                                                     asChild
                                                     isActive={item.isActive}>
-                                                    <a href={item.url}>{item.title}</a>
+                                                    <Link href={item.url}>{item.title}</Link>
                                                 </SidebarMenuSubButton>
                                             </SidebarMenuSubItem>
                                         ))}

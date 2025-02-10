@@ -6,7 +6,7 @@ import Profile from "./profile";
 
 export function TopNavbar() {
     return (
-        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 bg-background px-6 shadow-sm">
+        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 bg-background px-12 shadow-sm">
             <div className="flex items-center gap-5">
                 <SidebarTrigger className=""></SidebarTrigger>
                 <Link
@@ -21,7 +21,7 @@ export function TopNavbar() {
                 </Link>
                 <div className="hidden items-center gap-5 p-2 xl:flex">
                     <Link
-                        href="/admin"
+                        href="/dashboard"
                         className="mx-2 text-[13px] font-semibold text-gray-800 duration-500 hover:text-[#009ef7]">
                         Dashboard
                     </Link>
