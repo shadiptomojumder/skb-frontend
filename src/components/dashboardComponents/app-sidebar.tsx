@@ -34,7 +34,7 @@ const data = {
                 },
                 {
                     title: "Add New Category",
-                    url: "#",
+                    url: "/dashboard/categories/create",
                 },
                 {
                     title: "All Categories",

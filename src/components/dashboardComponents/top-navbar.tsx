@@ -6,7 +6,7 @@ import Profile from "./profile";
 
 export function TopNavbar() {
     return (
-        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 bg-background px-12 shadow-sm">
+        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 bg-background lg:px-12 md:px-7 sm:px-5 px-4 shadow-sm">
             <div className="flex items-center gap-5">
                 <SidebarTrigger className=""></SidebarTrigger>
                 <Link

@@ -39,8 +39,7 @@ export const productSchema = z.object({
     .optional(),
 
   images: z
-    .array(z.string().url({ message: "Each image must be a valid URL" }))
-    .min(1, { message: "At least one image is required" })
+    .any()
     .optional(),
 
   sku: z
