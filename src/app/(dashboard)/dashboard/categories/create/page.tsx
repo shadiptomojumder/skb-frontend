@@ -1,5 +1,5 @@
 "use client";
-import CreateCategory from "@/api/category/createCategory";
+import CreateCategory from "@/api/categories/createCategory";
 import CategoriesImageSelector from "@/components/dashboardComponents/categories-image-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

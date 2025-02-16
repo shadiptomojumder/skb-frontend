@@ -10,12 +10,14 @@ interface CreateProductResponse {
     statusCode: number;
 }
 
-const CreateProduct = async (data: Product): Promise<CreateProductResponse> => {
+const CreateProduct = async (data: FormData): Promise<CreateProductResponse> => {
     console.log("The Data in CreateProduct API is:", data);
 
     try {
         const response: AxiosResponse<CreateProductResponse> =
-            await api.post<CreateProductResponse>(`/product/create`, data);
+            await api.post<CreateProductResponse>(`/product/create`, data, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
         console.log("Response in CreateProduct.ts file: ", response);
 
         return response.data;

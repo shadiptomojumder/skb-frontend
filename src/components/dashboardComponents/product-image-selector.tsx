@@ -8,7 +8,7 @@ import { Skeleton } from "../ui/skeleton";
 
 interface ImageFile {
     id: string;
-    base64: string;
+    file: File;
     preview: string;
     name: string;
     type: string;
@@ -20,38 +20,20 @@ interface ProductImageSelectorProps {
 }
 
 export default function ProductImageSelector({ images, setImages }: ProductImageSelectorProps) {
-    //const [images, setImages] = useState<ImageFile[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const objectURLs = useRef<{ [key: string]: string }>({}); // Store object URLs
-
-    const convertToBase64 = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = (error) => reject(error);
-        });
-    };
 
     const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
             setIsLoading(true);
-            const newImages = await Promise.all(
-                Array.from(files).map(async (file) => {
-                    const base64 = await convertToBase64(file);
-                    const id = crypto.randomUUID(); // Stable ID
-                    objectURLs.current[id] = URL.createObjectURL(file); // Store URL in ref
-                    return {
-                        id,
-                        base64,
-                        preview: objectURLs.current[id],
-                        name: file.name,
-                        type: file.type,
-                    };
-                }),
-            );
+            const newImages = Array.from(files).map((file) => ({
+                id: URL.createObjectURL(file),
+                file,
+                preview: URL.createObjectURL(file),
+                name: file.name,
+                type: file.type,
+            }));
             setImages((prevImages) => [...prevImages, ...newImages]);
             setIsLoading(false);
         }
@@ -60,10 +42,7 @@ export default function ProductImageSelector({ images, setImages }: ProductImage
     const removeImage = (id: string) => {
         setImages((prevImages) => {
             const updatedImages = prevImages.filter((image) => image.id !== id);
-            if (objectURLs.current[id]) {
-                URL.revokeObjectURL(objectURLs.current[id]); // Clean up URL
-                delete objectURLs.current[id];
-            }
+            URL.revokeObjectURL(id);
             return updatedImages;
         });
     };
@@ -80,27 +59,18 @@ export default function ProductImageSelector({ images, setImages }: ProductImage
     const handleDrop = async (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         event.currentTarget.classList.remove("border-primary");
-
         const files = event.dataTransfer.files;
         if (files) {
             setIsLoading(true);
-            const newImages = await Promise.all(
-                Array.from(files)
-                    .filter((file) => file.type.startsWith("image/")) // Only accept images
-                    .map(async (file) => {
-                        const base64 = await convertToBase64(file);
-                        const id = crypto.randomUUID(); // Generate stable ID
-                        objectURLs.current[id] = URL.createObjectURL(file); // Store in ref
-
-                        return {
-                            id,
-                            base64,
-                            preview: objectURLs.current[id],
-                            name: file.name,
-                            type: file.type,
-                        };
-                    }),
-            );
+            const newImages = Array.from(files)
+                .filter((file) => file.type.startsWith("image/"))
+                .map((file) => ({
+                    id: URL.createObjectURL(file),
+                    file,
+                    preview: URL.createObjectURL(file),
+                    name: file.name,
+                    type: file.type,
+                }));
             setImages((prevImages) => [...prevImages, ...newImages]);
             setIsLoading(false);
         }
@@ -108,8 +78,6 @@ export default function ProductImageSelector({ images, setImages }: ProductImage
 
     return (
         <div className="mx-auto w-full">
-            {/* <Skeleton className="w-[100px] h-32 rounded-lg" /> */}
-
             {isLoading ? (
                 <Skeleton className="h-32 w-[100px] rounded-lg" />
             ) : (
