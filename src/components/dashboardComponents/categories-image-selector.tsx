@@ -1,64 +1,72 @@
 "use client";
+
 import { X } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
-import { useRef, useState, type ChangeEvent } from "react";
+import { useRef, type ChangeEvent } from "react";
 import gallery from "../../../public/icons/gallery_add.png";
 
-interface ImageFile {
-    id: string;
-    base64: string;
-    preview: string;
-    name: string;
-    type: string;
-}
-
-interface CategoryImageSelectorProps {
+interface ProductImageSelectorProps {
     image: ImageFile | null;
     setImage: React.Dispatch<React.SetStateAction<ImageFile | null>>;
 }
 
-export default function CategoriesImageSelector({ image, setImage }: CategoryImageSelectorProps) {
-    const [isLoading, setIsLoading] = useState(false);
+interface ImageFile {
+    id: string;
+    file: File;
+    preview: string;
+}
+
+export default function CategoriesImageSelector({ image, setImage }: ProductImageSelectorProps) {
+    // const [image, setImage] = useState<ImageFile | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const convertToBase64 = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = (error) => reject(error);
-        });
-    };
-
-    const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
-            setIsLoading(true);
-            const newImage: ImageFile = {
+            const newImage = {
                 id: URL.createObjectURL(file),
-                base64: await convertToBase64(file),
+                file: file,
                 preview: URL.createObjectURL(file),
-                name: file.name,
-                type: file.type,
             };
             setImage(newImage);
-            setIsLoading(false);
         }
     };
 
     const removeImage = () => {
         if (image) {
             URL.revokeObjectURL(image.id);
-            setImage(null);
+        }
+        setImage(null);
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        event.currentTarget.classList.add("border-primary");
+    };
+
+    const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+        event.currentTarget.classList.remove("border-primary");
+    };
+
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        event.currentTarget.classList.remove("border-primary");
+        const file = event.dataTransfer.files?.[0];
+        if (file && file.type.startsWith("image/")) {
+            const newImage = {
+                id: URL.createObjectURL(file),
+                file: file,
+                preview: URL.createObjectURL(file),
+            };
+            setImage(newImage);
         }
     };
 
     return (
-        <div className="mx-auto w-full">
-            {isLoading && <p className="mt-2 text-center">Loading image...</p>}
+        <div className="mx-auto w-full max-w-2xl">
             {image ? (
-                <div className="relative mx-auto mt-4 w-fit">
+                <div className="relative mx-auto w-fit">
                     <Image
                         src={image.preview || "/placeholder.svg"}
                         alt="Product preview"
@@ -75,7 +83,7 @@ export default function CategoriesImageSelector({ image, setImage }: CategoryIma
                     </button>
                 </div>
             ) : (
-                <div className="relative mx-auto mt-4 w-fit">
+                <div className="relative mx-auto w-fit">
                     <Image
                         src={gallery}
                         alt="Gallery"
@@ -87,8 +95,11 @@ export default function CategoriesImageSelector({ image, setImage }: CategoryIma
             )}
 
             <div
-                className="mt-3 cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-4 text-center transition-colors hover:border-gray-400"
-                onClick={() => fileInputRef.current?.click()}>
+                className="cursor-pointer rounded-lg border-2 mt-3 border-dashed border-gray-300 p-16 text-center transition-colors hover:border-gray-400 duration-200"
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}>
                 <input
                     type="file"
                     ref={fileInputRef}
@@ -97,6 +108,7 @@ export default function CategoriesImageSelector({ image, setImage }: CategoryIma
                     className="hidden"
                     aria-label="Select product image"
                 />
+
                 <p className="text-gray-600">
                     Click to select or drag and drop a product image here
                 </p>

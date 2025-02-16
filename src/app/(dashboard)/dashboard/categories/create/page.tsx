@@ -17,10 +17,8 @@ type FormData = z.infer<typeof categorySchema>;
 
 interface ImageFile {
     id: string;
-    base64: string;
+    file: File;
     preview: string;
-    name: string;
-    type: string;
 }
 
 const CategoryCreatePage = () => {
@@ -64,15 +62,23 @@ const CategoryCreatePage = () => {
     });
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
-        // Convert form data to an object
-        const categoryData = {
-            ...data,
-            thumbnail: image,
-        };
+        const formData = new FormData();
 
-        mutate(categoryData);
+        // Append text fields
+        Object.keys(data).forEach((key) => {
+            formData.append(key, data[key as keyof typeof data]);
+        });
+
+        // Append image files (assuming single image upload)
+        if (image) {
+            formData.append("thumbnail", image.file); // Only append the first image
+        }
+
         console.log("The data is: ", data);
-        console.log("The categoryData data is: ", categoryData);
+        console.log("The categoryData data is: ", formData);
+
+        mutate(formData);
+        
     };
     return (
         <div className="px-4 py-5 sm:px-5 md:px-7 lg:px-12">
@@ -99,7 +105,7 @@ const CategoryCreatePage = () => {
                 </div>
                 <section className="">
                     <form className="" onSubmit={handleSubmit(onSubmit)}>
-                        <section className="flex flex-col justify-between gap-5 lg:flex-row mb-5">
+                        <section className="mb-5 flex flex-col justify-between gap-5 lg:flex-row">
                             <section className="col-span-7 rounded-lg border-2 bg-gray-100 pb-5 lg:w-[80%]">
                                 <h2 className="mb-3 border-b-2 border-primary px-5 py-2 text-lg font-semibold text-primary">
                                     General information
@@ -150,14 +156,14 @@ const CategoryCreatePage = () => {
                         </section>
 
                         <Button type="submit" size="lg" disabled={isPending} className="">
-                        {isPending ? (
-                            <>
-                                <LoaderCircle className="animate-spin" /> Submiting
-                            </>
-                        ) : (
-                            <>Save & Publish</>
-                        )}
-                    </Button>
+                            {isPending ? (
+                                <>
+                                    <LoaderCircle className="animate-spin" /> Submiting
+                                </>
+                            ) : (
+                                <>Save & Publish</>
+                            )}
+                        </Button>
                     </form>
                 </section>
             </div>

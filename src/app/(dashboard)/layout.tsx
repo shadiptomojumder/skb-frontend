@@ -40,7 +40,7 @@ export default function RootLayout({
                     </SidebarInset>
                 </SidebarProvider>
                 </TanstackProvider>
-                <Toaster />
+                <Toaster richColors/>
             </body>
         </html>
     );
