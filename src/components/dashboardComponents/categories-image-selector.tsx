@@ -1,24 +1,19 @@
 "use client";
 
+import { ImageFile } from "@/interfaces/common.schemas";
 import { X } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
 import { useRef, type ChangeEvent } from "react";
 import gallery from "../../../public/icons/gallery_add.png";
 
-interface ProductImageSelectorProps {
+interface CatgoryImageSelectorProps {
     image: ImageFile | null;
     setImage: React.Dispatch<React.SetStateAction<ImageFile | null>>;
+    setIsImageChanged?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface ImageFile {
-    id: string;
-    file: File;
-    preview: string;
-}
-
-export default function CategoriesImageSelector({ image, setImage }: ProductImageSelectorProps) {
-    // const [image, setImage] = useState<ImageFile | null>(null);
+export default function CategoriesImageSelector({ image, setImage,setIsImageChanged }: CatgoryImageSelectorProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +23,13 @@ export default function CategoriesImageSelector({ image, setImage }: ProductImag
                 id: URL.createObjectURL(file),
                 file: file,
                 preview: URL.createObjectURL(file),
+                name: file.name,
+                type: file.type,
             };
             setImage(newImage);
+            if (setIsImageChanged) {
+                setIsImageChanged(true);
+            }
         }
     };
 
@@ -58,6 +58,8 @@ export default function CategoriesImageSelector({ image, setImage }: ProductImag
                 id: URL.createObjectURL(file),
                 file: file,
                 preview: URL.createObjectURL(file),
+                name: file.name,
+                type: file.type,
             };
             setImage(newImage);
         }
@@ -95,7 +97,7 @@ export default function CategoriesImageSelector({ image, setImage }: ProductImag
             )}
 
             <div
-                className="cursor-pointer rounded-lg border-2 mt-3 border-dashed border-gray-300 p-16 text-center transition-colors hover:border-gray-400 duration-200"
+                className="mt-3 cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-16 text-center transition-colors duration-200 hover:border-gray-400"
                 onClick={() => fileInputRef.current?.click()}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}

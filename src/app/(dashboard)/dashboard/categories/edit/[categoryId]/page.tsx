@@ -1,5 +1,6 @@
 "use client";
-import CreateCategory from "@/api/categories/createCategory";
+import GetCategoryById from "@/api/categories/getCategoryById";
+import UpdateCategory from "@/api/categories/updateCategory";
 import CategoriesImageSelector from "@/components/dashboardComponents/categories-image-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,33 +8,68 @@ import { Label } from "@/components/ui/label";
 import { CategoryFormData, categorySchema } from "@/interfaces/category.schemas";
 import { ImageFile } from "@/interfaces/common.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { LoaderCircle, PackagePlus } from "lucide-react";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const CategoryCreatePage = () => {
+const CategoryEditPage = () => {
     const [image, setImage] = useState<ImageFile | null>(null);
-    console.log("The images are form file:", image);
+    const [initialImage, setInitialImage] = useState<string | null>(null);
+    const [isImageChanged, setIsImageChanged] = useState<boolean>(false);
+    
+    
+    const params = useParams(); // Get URL parameters
+
+    const { categoryId } = params;
+
+    console.log("The categoryid is:", categoryId);
+
+    const { data: category } = useQuery({
+        queryKey: ["category", categoryId],
+        queryFn: () => GetCategoryById({ categoryId: categoryId as string }),
+    });
+
+    // console.log("The category is:", category);
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors,isDirty },
         reset,
+        setValue
     } = useForm<CategoryFormData>({ resolver: zodResolver(categorySchema) });
 
+    useEffect(() => {
+        if (category) {
+            if (category.thumbnail) {
+                setImage({
+                    id: category.thumbnail,
+                    file: new File([], category.thumbnail),
+                    preview: category.thumbnail,
+                    name: category.thumbnail,
+                    type: "image/png",
+                });
+                setInitialImage(category.thumbnail);
+            }
+            setValue("title", category.title);
+        }
+    }, [category,setValue]);
+
     const { mutate, isPending } = useMutation({
-        mutationFn: CreateCategory,
+        mutationFn: UpdateCategory,
         onSuccess: (response) => {
-            console.log("The Response was:", response);
-            console.log("The Response.data was:", response.data);
+            // console.log("The Response was:", response);
+            // console.log("The Response.data was:", response.data);
 
             if (response.statusCode === 200) {
-                toast.success("Category successfully created");
+                toast.success("Category successfully updated");
                 reset();
                 setImage(null);
+                setInitialImage(null);
+                setIsImageChanged(false);
             }
         },
         onError: (error: {
@@ -42,7 +78,7 @@ const CategoryCreatePage = () => {
             message?: string;
         }) => {
             if (error?.response?.status == 409) {
-                toast.warning("Category already created!!");
+                toast.warning("Product already created!!");
             } else if (error?.response?.status == 400) {
                 toast.warning("Please fill all the required fields!");
             } else if (error.request) {
@@ -53,23 +89,30 @@ const CategoryCreatePage = () => {
         },
     });
 
+    console.log("isDirty:", isDirty);
+    console.log("isImageChanged:", isImageChanged);
+    console.log("isPending:", isPending);
+    
+
     const onSubmit: SubmitHandler<CategoryFormData> = async (data) => {
         const formData = new FormData();
 
         // Append text fields
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key as keyof typeof data]);
-        });
-
-        // Append image files (assuming single image upload)
-        if (image) {
-            formData.append("thumbnail", image.file); // Only append the first image
+        if (data.title !== category?.title) {
+            formData.append("title", data.title);
         }
 
-        console.log("The data is: ", data);
-        console.log("The categoryData data is: ", formData);
+        // Append image file only if it has changed
+        if (image && image.preview !== initialImage as string) {
+            console.log("Image has changed, appending to FormData");
+            formData.append("thumbnail", image.file);
+        }
 
-        mutate(formData);
+        if (categoryId) {
+            mutate({ categoryId: categoryId as string, data: formData });
+        } else {
+            console.error("Category ID is undefined");
+        }
     };
     return (
         <div className="px-4 py-5 sm:px-5 md:px-7 lg:px-12">
@@ -78,12 +121,21 @@ const CategoryCreatePage = () => {
                     <div>
                         <h2 className="flex gap-2 text-center text-lg font-semibold text-primary sm:text-left">
                             <PackagePlus />
-                            Create New Product Category
+                            Edit Product Category
                         </h2>
                         <p className="text-start text-sm sm:text-left">
                             Select your image and suitable name for product and click create button.
                         </p>
                     </div>
+                    {/* <Button type="submit" size="lg" disabled={isPending}>
+                        {isPending ? (
+                            <>
+                                <LoaderCircle className="animate-spin" /> Submiting
+                            </>
+                        ) : (
+                            <>Save & Publish</>
+                        )}
+                    </Button> */}
                 </div>
                 <section className="">
                     <form className="" onSubmit={handleSubmit(onSubmit)}>
@@ -124,7 +176,7 @@ const CategoryCreatePage = () => {
                                         Category Thumbnail <span className="text-red-600">*</span>
                                     </Label>
 
-                                    <CategoriesImageSelector image={image} setImage={setImage} />
+                                    <CategoriesImageSelector image={image} setImage={setImage} setIsImageChanged={setIsImageChanged} />
 
                                     <div className="h-5">
                                         {errors.thumbnail && (
@@ -137,7 +189,7 @@ const CategoryCreatePage = () => {
                             </section>
                         </section>
 
-                        <Button type="submit" size="lg" disabled={isPending} className="">
+                        <Button type="submit" size="lg" disabled={(!isDirty && !isImageChanged) || isPending} className="">
                             {isPending ? (
                                 <>
                                     <LoaderCircle className="animate-spin" /> Submiting
@@ -153,4 +205,4 @@ const CategoryCreatePage = () => {
     );
 };
 
-export default CategoryCreatePage;
+export default CategoryEditPage;

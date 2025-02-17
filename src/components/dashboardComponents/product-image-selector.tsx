@@ -1,18 +1,11 @@
 "use client";
+import { ImageFile } from "@/interfaces/common.schemas";
 import { X } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
 import { useRef, useState, type ChangeEvent } from "react";
 import gallery from "../../../public/icons/gallery_add.png";
 import { Skeleton } from "../ui/skeleton";
-
-interface ImageFile {
-    id: string;
-    file: File;
-    preview: string;
-    name: string;
-    type: string;
-}
 
 interface ProductImageSelectorProps {
     images: ImageFile[];

@@ -14,30 +14,20 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Category } from "@/interfaces/category.schemas";
-import { productSchema } from "@/interfaces/product.schemas";
+import { ImageFile } from "@/interfaces/common.schemas";
+import { ProductFormData, productSchema } from "@/interfaces/product.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { LoaderCircle, PackagePlus } from "lucide-react";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
-
-type FormData = z.infer<typeof productSchema>;
-
-interface ImageFile {
-    id: string;
-    file: File;
-    preview: string;
-    name: string;
-    type: string;
-}
 
 const CreateNewProductPage = () => {
     const [images, setImages] = useState<ImageFile[]>([]);
     console.log("The images are form file:", images);
 
-    const { data: categories } = useQuery({
+    const { data: categories } = useQuery<Category[]>({
         queryKey: ["categories"],
         queryFn: GetCategories,
     });
@@ -49,7 +39,7 @@ const CreateNewProductPage = () => {
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm<FormData>({ resolver: zodResolver(productSchema) });
+    } = useForm<ProductFormData>({ resolver: zodResolver(productSchema) });
 
     const { mutate, isPending } = useMutation({
         mutationFn: CreateProduct,
@@ -80,7 +70,7 @@ const CreateNewProductPage = () => {
         },
     });
 
-    const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const onSubmit: SubmitHandler<ProductFormData> = async (data) => {
         const formData = new FormData();
         console.log("The images are: ", images);
 
@@ -94,8 +84,6 @@ const CreateNewProductPage = () => {
             formData.append("images", image.file);
         });
 
-        console.log("The data is: ", data);
-        console.log("The productData data is: ", formData);
         // Log all FormData values
         formData.forEach((value, key) => {
             console.log(key, value);

@@ -5,7 +5,6 @@ import {
     SidebarGroup,
     SidebarHeader,
     SidebarMenu,
-    SidebarMenuButton,
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarMenuSubItem,
@@ -24,21 +23,20 @@ const data = {
             url: "#",
             items: [
                 {
+                    title: "All Products",
+                    url: "/dashboard/products",
+                },
+                {
                     title: "Add New Product",
                     url: "/dashboard/products/create",
                 },
                 {
-                    title: "All Products",
-                    url: "#",
-                    isActive: true,
+                    title: "All Categories",
+                    url: "/dashboard/categories",
                 },
                 {
                     title: "Add New Category",
                     url: "/dashboard/categories/create",
-                },
-                {
-                    title: "All Categories",
-                    url: "#",
                 },
                 {
                     title: "Styling",
@@ -117,7 +115,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const pathname = usePathname();
-    console.log("the pathname is:", pathname);
+    //console.log("the pathname is:", pathname);
 
     interface NavItem {
         title: string;
@@ -138,32 +136,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SearchForm />
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarMenu>
+                <SidebarGroup className="pr-0">
+                    <SidebarMenu className="">
                         {data.navMain.map((item) => {
                             const active = isActive(item);
-                            console.log("Active is:", active);
 
                             return (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton>
-                                        <a
-                                            href={item.url}
-                                            className={`text-base font-semibold ${active ? "text-primary" : "text-black"}`}>
-                                            {item.title}
-                                        </a>
-                                    </SidebarMenuButton>
+                                    <p
+                                        className={`p-2 text-base font-semibold ${active ? "text-primary" : "text-black"}`}>
+                                        {item.title}
+                                    </p>
+
                                     {item.items?.length ? (
-                                        <SidebarMenuSub className="border-none">
+                                        <SidebarMenuSub className="border-none px-0">
                                             {item.items.map((item) => {
                                                 const active = isActive(item);
                                                 return (
                                                     <Link key={item.title} href={item.url}>
-                                                    <SidebarMenuSubItem
-                                                        
-                                                        className={`cursor-pointer duration-150 ease-out hover:bg-[#cee3f6] hover:text-primary hover:border-primary border-l-2 py-2 ps-2 text-sm ${active ? "border-primary bg-[#cee3f6] font-medium text-primary" : "border-white bg-white text-black"}`}>
-                                                        {item.title}
-                                                    </SidebarMenuSubItem>
+                                                        <SidebarMenuSubItem
+                                                            className={`cursor-pointer border-l-2 py-2 ps-2 text-sm duration-150 ease-out hover:border-primary hover:bg-[#cee3f6] hover:text-primary ${active ? "border-primary bg-[#cee3f6] font-medium text-primary" : "border-white bg-white text-black"}`}>
+                                                            {item.title}
+                                                        </SidebarMenuSubItem>
                                                     </Link>
                                                 );
                                             })}

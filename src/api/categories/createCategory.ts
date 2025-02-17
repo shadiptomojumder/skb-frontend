@@ -11,7 +11,7 @@ const CreateCategory = async (data: FormData) => {
 
         return response.data;
     } catch (error) {
-        console.log("The Error in Appointment api is:", error);
+        console.log("The Error in CreateCategory api is:", error);
 
         throw error;
     }
