@@ -31,7 +31,7 @@ api.interceptors.request.use(
 );
 
 // Parse the token get from the localestorage.
-const Parse = (token: any) => {
+const Parse = (token: string | null) => {
     if (token) {
         const tokenPayload = JSON.parse(token);
         return tokenPayload;

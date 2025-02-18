@@ -1,6 +1,6 @@
 "use client";
 import GetCategories from "@/api/categories/getCategories";
-import CreateProduct from "@/api/product/createProduct";
+import CreateProduct from "@/api/products/createProduct";
 import ProductImageSelector from "@/components/dashboardComponents/product-image-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

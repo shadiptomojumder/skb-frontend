@@ -41,6 +41,8 @@ const CategoryCreatePage = () => {
             request?: XMLHttpRequest;
             message?: string;
         }) => {
+            console.log("The Create Category Error is: ", error);
+            
             if (error?.response?.status == 409) {
                 toast.warning("Category already created!!");
             } else if (error?.response?.status == 400) {

@@ -1,17 +1,9 @@
 "use client";
-import CurrentUser from "@/api/user/currentUser";
 import Logout from "@/api/user/logout";
-import { useQuery } from "@tanstack/react-query";
 import { differenceInMilliseconds, formatDistanceToNow } from "date-fns";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import React, {
-    createContext,
-    FC,
-    ReactNode,
-    useEffect,
-    useState,
-} from "react";
+import React, { createContext, FC, ReactNode, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface DecodedToken {
@@ -115,7 +107,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
     //     }
     // }, [])
 
-    const HandleTokenExpiration = async () => {
+    const HandleTokenExpiration = () => {
         const router = useRouter();
         const storedUser = localStorage.getItem("userData");
         if (storedUser) {
@@ -123,7 +115,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
                 const parsedUser = JSON.parse(storedUser);
                 const userId = parsedUser?._id;
                 const tokenData: DecodedToken | null | undefined = DecodeToken(
-                    parsedUser?.refreshToken
+                    parsedUser?.refreshToken,
                 );
                 //console.log("Token data from token is:", tokenData);
 
@@ -131,14 +123,12 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
                     const expireTimestamp = Number(tokenData.exp);
                     const now = new Date();
                     const expireDate = new Date(Number(expireTimestamp) * 1000); // Convert to milliseconds
-                    const remainingTimeInMilliseconds =
-                        differenceInMilliseconds(expireDate, now);
+                    const remainingTimeInMilliseconds = differenceInMilliseconds(expireDate, now);
 
                     if (remainingTimeInMilliseconds > 0) {
-                        const formattedRemainingTime = formatDistanceToNow(
-                            expireDate,
-                            { addSuffix: true }
-                        );
+                        // const formattedRemainingTime = formatDistanceToNow(expireDate, {
+                        //     addSuffix: true,
+                        // });
 
                         //console.log(`Token expires ${formattedRemainingTime}`);
                         // console.log(
@@ -147,15 +137,10 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
 
                         setTimeout(async () => {
                             const response = await Logout({ userId });
-                            console.log(
-                                "The Logout Response line 110",
-                                response
-                            );
+                            console.log("The Logout Response line 110", response);
 
                             if (response.statusCode === 200) {
-                                toast.warning(
-                                    "Session expired. Please log in again 111111."
-                                );
+                                toast.warning("Session expired. Please log in again 111111.");
                                 localStorage.clear();
                                 setUser(null);
                                 document.cookie = "";
@@ -167,11 +152,9 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
                     } else {
                         console.warn("Token has already expired");
                         // Handle token expiration immediately
-                        const response = await Logout({ userId });
+                        const response = Logout({ userId });
                         console.log("The Logout Response line 128", response);
-                        toast.error(
-                            "Session expired. Please log in again 22222."
-                        );
+                        toast.error("Session expired. Please log in again 22222.");
                         localStorage.clear();
                         setUser(null);
                         document.cookie = "";

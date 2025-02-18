@@ -3,7 +3,7 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Banner5 from "../../../../../../public/banners/banner5.png";
 
-import GetAllProducts from "@/api/product/getAllProducts";
+import GetAllProducts from "@/api/products/getProducts";
 import { Card, CardContent } from "@/components/ui/card";
 import {
     Carousel,
@@ -24,7 +24,7 @@ const HeroSection = () => {
     console.log("productList:", productList);
 
     return (
-        <section className="container mx-auto px-3 sm:px-0 md:pt-22 sm:pt-31 pt-26 pb-5">
+        <section className="container mx-auto px-3 pt-26 pb-5 sm:px-0 sm:pt-31 md:pt-22">
             <Carousel
                 plugins={[plugin.current]}
                 className="w-full max-w-full"
