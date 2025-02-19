@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { CategoryFormData, categorySchema } from "@/interfaces/category.schemas";
 import { ImageFile } from "@/interfaces/common.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle, PackagePlus } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ const CategoryEditPage = () => {
     const [image, setImage] = useState<ImageFile | null>(null);
     const [initialImage, setInitialImage] = useState<string | null>(null);
     const [isImageChanged, setIsImageChanged] = useState<boolean>(false);
-    
+    const queryClient = useQueryClient();
     
     const params = useParams(); // Get URL parameters
 
@@ -66,6 +66,7 @@ const CategoryEditPage = () => {
 
             if (response.statusCode === 200) {
                 toast.success("Category successfully updated");
+                queryClient.invalidateQueries({ queryKey: ["categories"] });
                 reset();
                 setImage(null);
                 setInitialImage(null);

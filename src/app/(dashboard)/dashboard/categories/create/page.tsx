@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { CategoryFormData, categorySchema } from "@/interfaces/category.schemas";
 import { ImageFile } from "@/interfaces/common.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { LoaderCircle, PackagePlus } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -16,6 +17,7 @@ import { toast } from "sonner";
 const CategoryCreatePage = () => {
     const [image, setImage] = useState<ImageFile | null>(null);
     console.log("The images are form file:", image);
+    const queryClient = useQueryClient();
 
     const {
         register,
@@ -32,15 +34,12 @@ const CategoryCreatePage = () => {
 
             if (response.statusCode === 200) {
                 toast.success("Category successfully created");
+                queryClient.invalidateQueries({ queryKey: ["categories"] });
                 reset();
                 setImage(null);
             }
         },
-        onError: (error: {
-            response?: { status: number };
-            request?: XMLHttpRequest;
-            message?: string;
-        }) => {
+        onError: (error: AxiosError) => {
             console.log("The Create Category Error is: ", error);
             
             if (error?.response?.status == 409) {

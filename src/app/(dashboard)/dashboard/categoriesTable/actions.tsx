@@ -36,7 +36,7 @@ const Actions = ({ categoryId }: { categoryId: string }) => {
     });
 
     const handleDelete = () => {
-        mutate(categoryId);
+        mutate({categoryId});
     };
 
     return (
