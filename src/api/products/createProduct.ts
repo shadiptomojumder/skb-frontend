@@ -15,7 +15,7 @@ const CreateProduct = async (data: FormData): Promise<CreateProductResponse> => 
 
     try {
         const response: AxiosResponse<CreateProductResponse> =
-            await api.post<CreateProductResponse>(`/product/create`, data, {
+            await api.post<CreateProductResponse>(`/products`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
         console.log("Response in CreateProduct.ts file: ", response);

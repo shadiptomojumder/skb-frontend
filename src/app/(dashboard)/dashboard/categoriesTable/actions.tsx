@@ -1,6 +1,16 @@
-import DeleteCategory from "@/api/categories/deleteCategory";
+import DeleteCategory from "@/api/categories/deleteCategories";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Settings2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
@@ -36,22 +46,55 @@ const Actions = ({ categoryId }: { categoryId: string }) => {
     });
 
     const handleDelete = () => {
-        mutate({categoryId});
+        mutate({ categoryId });
     };
 
     return (
-        <div className="flex items-center gap-2">
-            <Link
-                href={`/dashboard/categories/edit/${categoryId}`}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2992F21C] text-primary">
-                <Pencil size={18} />
-            </Link>
-            <button
-                onClick={() => handleDelete()}
-                className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-red-200 text-red-700">
-                <Trash2 size={18} />
-            </button>
-        </div>
+        <>
+            <div className="hidden items-center gap-2 min-sm:flex">
+                <Link
+                    href={`/dashboard/categories/edit/${categoryId}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2992F21C] text-primary">
+                    <Pencil size={18} />
+                </Link>
+                <button
+                    onClick={() => handleDelete()}
+                    className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-red-200 text-red-700">
+                    <Trash2 size={18} />
+                </button>
+            </div>
+            <DropdownMenu>
+                <DropdownMenuTrigger className="hidden w-full justify-center max-sm:flex">
+                    <button className="w-fit rounded-md bg-gray-100 p-2">
+                        <Settings2 size={18} />
+                    </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-36">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem className="font-medium">
+                            Edit
+                            <DropdownMenuShortcut>
+                                <Pencil />
+                            </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="bg-red-200 font-medium text-red-700 hover:bg-red-200 hover:text-red-700">
+                            Delete
+                            <DropdownMenuShortcut>
+                                <Trash2 className="text-red-700" />
+                            </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                        {/* <DropdownMenuItem>
+                            Settings
+                            <DropdownMenuShortcut>
+                                <Settings />
+                            </DropdownMenuShortcut>
+                        </DropdownMenuItem> */}
+                    </DropdownMenuGroup>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </>
     );
 };
 

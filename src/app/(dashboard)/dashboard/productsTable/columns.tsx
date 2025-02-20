@@ -3,10 +3,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Category } from "@/interfaces/category.schemas";
 import { Product } from "@/interfaces/product.schemas";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { FileImage } from "lucide-react";
 import Image from "next/image";
 import Actions from "./actions";
 import { DataTableColumnHeader } from "./data-table-column-header";
@@ -44,9 +44,17 @@ export const columns: ColumnDef<Product>[] = [
             return (
                 <div className="">
                     {firstImage ? (
-                        <Image src={firstImage} alt="thumbnail" width={60} height={60} className="min-w-[60px] min-h-[60px]" />
+                        <Image
+                            src={firstImage}
+                            alt="thumbnail"
+                            width={60}
+                            height={60}
+                            className="min-h-[60px] min-w-[60px]"
+                        />
                     ) : (
-                        <div>No Image</div>
+                        <div className="flex min-h-[60px] w-[60px] min-w-[60px] items-center justify-center bg-slate-200">
+                            <FileImage />
+                        </div>
                     )}
                 </div>
             );
@@ -61,7 +69,7 @@ export const columns: ColumnDef<Product>[] = [
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <div className="line-clamp-2 w-fit min-w-[200px] max-w-[450px] text-sm capitalize">
+                            <div className="line-clamp-2 w-fit max-w-[450px] min-w-[200px] text-sm capitalize">
                                 {row.getValue("name")}
                             </div>
                         </TooltipTrigger>
@@ -72,11 +80,12 @@ export const columns: ColumnDef<Product>[] = [
         },
     },
     {
+        // here i have an different approch to do filtering
         id: "category",
-        accessorKey: "category",
+        accessorKey: "category.value",
         header: ({ column }) => <DataTableColumnHeader column={column} title="Category" />,
         cell: ({ row }) => {
-            const category = row.getValue<Category>("category");
+            const category = row.original.category; // Access full category object
             return (
                 <div className="w-fit text-base text-nowrap capitalize">
                     <Badge variant="primary" className="">
@@ -84,6 +93,10 @@ export const columns: ColumnDef<Product>[] = [
                     </Badge>
                 </div>
             );
+        },
+        filterFn: (row, id, value) => {
+            const categoryValue = row.getValue(id); // This is already a string
+            return value.includes(categoryValue); // Compare directly
         },
     },
     {
@@ -119,10 +132,10 @@ export const columns: ColumnDef<Product>[] = [
         accessorKey: "id",
         header: () => <div>Actions</div>,
         cell: ({ row }) => {
-            const categoryId = row.getValue("id");
-            //console.log("categoryId", categoryId);
+            const productId = row.getValue("id");
+            //console.log("productId", productId);
 
-            return <Actions categoryId={categoryId as string} />;
+            return <Actions productId={productId as string} />;
         },
     },
 

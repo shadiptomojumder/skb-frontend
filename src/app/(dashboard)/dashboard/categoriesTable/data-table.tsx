@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 import { DataTablePagination } from "./data-table-pagination";
+import { DataTableToolbar } from "./data-table-toolbar";
 // import { DataTablePagination } from "./data-table-pagination";
 // import { DataTableToolbar } from "./data-table-toolbar";
 
@@ -68,13 +69,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
     return (
         <div className="h-full w-full">
-            <div className="px-5">
-                {/* <DataTableToolbar
-                    table={table}
-                    setFiltering={setFiltering}
-                    filtering={filtering}
-                /> */}
-            </div>
+            <DataTableToolbar table={table} setFiltering={setFiltering} filtering={filtering} />
+
             <div className="rounded-t-lg border-2 px-1">
                 <Table>
                     <TableHeader>

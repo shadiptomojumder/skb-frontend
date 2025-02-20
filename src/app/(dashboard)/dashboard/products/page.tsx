@@ -9,14 +9,14 @@ import { DataTable } from "../productsTable/data-table";
 const AllProductPage = () => {
     const { data: products } = useQuery<Product[]>({
         queryKey: ["products"],
-        queryFn: GetProducts,
+        queryFn: ()=> GetProducts({"limit":0}),
     });
 
     console.log("The products are:", products);
 
     return (
         <section className="px-4 py-5 sm:px-5 md:px-7 lg:px-12">
-            <div>
+            <div className="mb-5">
                 <h2 className="flex gap-2 text-center text-lg font-semibold text-primary sm:text-left">
                     <Boxes />
                     All Products

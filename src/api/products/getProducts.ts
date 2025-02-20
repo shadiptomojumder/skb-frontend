@@ -1,28 +1,38 @@
-import { AxiosError } from "axios";
 import { api } from "../api";
 
-const GetProducts = async () => {
+interface ProductQueryParams {
+    sortBy?: string;
+    sortOrder?: "asc" | "desc";
+    limit?: number;
+    page?: number;
+    name?: string;
+    price?: number;
+    sku?: string;
+}
+
+const GetProducts = async (queryParams: ProductQueryParams) => {
     try {
-        //console.log("queryKey in getAllproduct API:",queryKey);
+        // Build query string dynamically
+        const buildQueryString = (queryParams: ProductQueryParams) => {
+            return Object.entries(queryParams)
+                .filter(([, value]) => value !== undefined && value !== null)
+                .map(
+                    ([key, value]) =>
+                        `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`,
+                )
+                .join("&");
+        };
 
-        const response = await api.get(`/products`);
-        console.log("Response from GetProducts API:", response.data.data);
+        const queryString = buildQueryString(queryParams);
 
-        return response.data.data;
+        const url = queryString ? `/products?${queryString}` : "/products";
+
+        const response = await api.get(url);
+
+        return response.data?.data ?? [];
     } catch (error) {
-        // Ensure error is typed correctly as AxiosError
-        if (error instanceof AxiosError) {
-            if (error.response) {
-                console.error("Server Error:", error.response.data);
-                throw new Error(error.response.data.message || "Server Error");
-            } else if (error.request) {
-                console.error("Network Error:", error.request);
-                throw new Error("Network Error: No response received from the server");
-            }
-        }
-
-        console.error("Unexpected Error:", (error as Error).message);
-        throw new Error((error as Error).message || "An unknown error occurred");
+        console.log("Error in DeleteCategory API:", error);
+        throw error;
     }
 };
 

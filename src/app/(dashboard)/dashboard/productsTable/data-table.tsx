@@ -1,5 +1,3 @@
-"use client";
-
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -24,6 +22,8 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
+import { DataTablePagination } from "./data-table-pagination";
+import { DataTableToolbar } from "./data-table-toolbar";
 // import { DataTablePagination } from "./data-table-pagination";
 // import { DataTableToolbar } from "./data-table-toolbar";
 
@@ -32,15 +32,10 @@ interface DataTableProps<TData, TValue> {
     data: TData[];
 }
 
-export function DataTable<TData, TValue>({
-    columns,
-    data,
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
-        {}
-    );
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = useState({});
 
     const [filtering, setFiltering] = useState("");
@@ -71,15 +66,10 @@ export function DataTable<TData, TValue>({
     });
 
     return (
-        <div className="w-full space-y-5 h-full">
-            <div className="px-5">
-                {/* <DataTableToolbar
-                    table={table}
-                    setFiltering={setFiltering}
-                    filtering={filtering}
-                /> */}
-            </div>
-            <div className="border-2 rounded-lg px-1">
+        <div className="">
+            <DataTableToolbar table={table} setFiltering={setFiltering} filtering={filtering} />
+
+            <div className="rounded-t-lg border-2 px-1">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -90,10 +80,9 @@ export function DataTable<TData, TValue>({
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
-                                                        header.column.columnDef
-                                                            .header,
-                                                        header.getContext()
-                                                    )}
+                                                      header.column.columnDef.header,
+                                                      header.getContext(),
+                                                  )}
                                         </TableHead>
                                     );
                                 })}
@@ -105,15 +94,14 @@ export function DataTable<TData, TValue>({
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
-                                    data-state={
-                                        row.getIsSelected() && "selected"
-                                    }
-                                >
+                                    data-state={row.getIsSelected() && "selected"}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="max-w-[300px] max-sm:last:backdrop-blur-sm max-sm:last:bg-white max-sm:last:bg-opacity-[0.01] max-sm:last:sticky max-sm:right-0 max-sm:last:px-1">
+                                        <TableCell
+                                            key={cell.id}
+                                            className="max-sm:last:bg-opacity-[0.01] max-w-[300px] max-sm:right-0 max-sm:last:sticky max-sm:last:bg-white max-sm:last:px-1 max-sm:last:backdrop-blur-sm">
                                             {flexRender(
                                                 cell.column.columnDef.cell,
-                                                cell.getContext()
+                                                cell.getContext(),
                                             )}
                                         </TableCell>
                                     ))}
@@ -121,10 +109,7 @@ export function DataTable<TData, TValue>({
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell
-                                    colSpan={columns.length}
-                                    className="h-24 text-center"
-                                >
+                                <TableCell colSpan={columns.length} className="h-24 text-center">
                                     No Product found.
                                 </TableCell>
                             </TableRow>
@@ -132,9 +117,8 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="px-5 pb-3">
-                {/* <DataTablePagination table={table} /> */}
-            </div>
+
+            <DataTablePagination table={table} />
         </div>
     );
 }

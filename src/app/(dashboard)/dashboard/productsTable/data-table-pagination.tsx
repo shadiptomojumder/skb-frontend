@@ -1,4 +1,4 @@
-import DeleteCategory from "@/api/categories/deleteCategories";
+import DeleteProducts from "@/api/products/deleteProducts";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -41,20 +41,16 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
     //console.log("selected rows: ", selectedRows);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const categoryIds = selectedRows.map((selected: any) => {
+    const productIds = selectedRows.map((selected: any) => {
         const Id = selected?.original.id;
         return Id;
     });
 
-    // const categoryIds = selectedRows
-    // .map((selected: any) => selected?.original?._id)
-    // .filter(Boolean); // Remove undefined values
-
-    // console.log("selected categoryIds", categoryIds);
+     //console.log("selected categoryIds", productIds);
     const queryClient = useQueryClient();
     const { mutate, isPending } = useMutation({
         mutationKey: [],
-        mutationFn: DeleteCategory,
+        mutationFn: DeleteProducts,
         onSuccess: (response) => {
             console.log("the res is ", response);
 
@@ -63,7 +59,7 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
                     table.toggleAllRowsSelected(false);
                 });
                 toast.success("Selected products are deleted");
-                queryClient.invalidateQueries({ queryKey: ["categories"] });
+                queryClient.invalidateQueries({ queryKey: ["products"] });
                 setIsDeleteDialogOpen(false);
             }
         },
@@ -82,7 +78,7 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
     });
 
     const handleMultipleDelete = async () => {
-        mutate({ ids: categoryIds });
+        mutate({ ids: productIds });
     };
 
     return (

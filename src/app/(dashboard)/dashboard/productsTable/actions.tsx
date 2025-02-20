@@ -1,28 +1,25 @@
-import DeleteCategory from "@/api/categories/deleteCategory";
+import DeleteProducts from "@/api/products/deleteProducts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-const Actions = ({ categoryId }: { categoryId: string }) => {
+const Actions = ({ productId }: { productId: string }) => {
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation({
         mutationKey: [],
-        mutationFn: DeleteCategory,
+        mutationFn: DeleteProducts,
         onSuccess: (response) => {
             console.log("the res is ", response);
 
             if (response.statusCode === 200) {
-                toast.success("Category deleted successfully");
-                queryClient.invalidateQueries({ queryKey: ["categories"] });
+                toast.success("Product successfully deleted");
+                queryClient.invalidateQueries({ queryKey: ["products"] });
             }
         },
-        onError: (error: {
-            response?: { status: number };
-            request?: XMLHttpRequest;
-            message?: string;
-        }) => {
+        onError: (error: AxiosError) => {
             if (error?.response?.status == 400) {
                 toast.warning("Missing product Id");
             } else if (error?.response?.status == 500) {
@@ -36,13 +33,13 @@ const Actions = ({ categoryId }: { categoryId: string }) => {
     });
 
     const handleDelete = () => {
-        mutate(categoryId);
+        mutate({ productId });
     };
 
     return (
         <div className="flex items-center gap-2">
             <Link
-                href={`/dashboard/categories/edit/${categoryId}`}
+                href={`/dashboard/products/edit/${productId}`}
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2992F21C] text-primary">
                 <Pencil size={18} />
             </Link>
