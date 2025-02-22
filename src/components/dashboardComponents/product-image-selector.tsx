@@ -10,9 +10,10 @@ import { Skeleton } from "../ui/skeleton";
 interface ProductImageSelectorProps {
     images: ImageFile[];
     setImages: React.Dispatch<React.SetStateAction<ImageFile[]>>;
+    setIsImageChanged?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ProductImageSelector({ images, setImages }: ProductImageSelectorProps) {
+export default function ProductImageSelector({ images, setImages,setIsImageChanged }: ProductImageSelectorProps) {
     const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -29,6 +30,9 @@ export default function ProductImageSelector({ images, setImages }: ProductImage
             }));
             setImages((prevImages) => [...prevImages, ...newImages]);
             setIsLoading(false);
+            if (setIsImageChanged) {
+                setIsImageChanged(true);
+            }
         }
     };
 
@@ -76,9 +80,9 @@ export default function ProductImageSelector({ images, setImages }: ProductImage
             ) : (
                 <>
                     {images.length > 0 ? (
-                        <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                            {images.map((image) => (
-                                <div key={image.id} className="group relative">
+                        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+                            {images.map((image,index) => (
+                                <div key={index} className="group relative">
                                     <Image
                                         src={image.preview || "/placeholder.svg"}
                                         alt="Product preview"
@@ -102,7 +106,7 @@ export default function ProductImageSelector({ images, setImages }: ProductImage
                             alt="Gallery"
                             width={100}
                             height={100}
-                            className="mx-auto mt-2 h-32 w-fit"
+                            className="mx-auto h-32 w-fit"
                         />
                     )}
                 </>

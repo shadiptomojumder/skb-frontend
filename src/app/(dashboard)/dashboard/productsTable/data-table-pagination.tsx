@@ -1,4 +1,4 @@
-import DeleteProducts from "@/api/products/deleteProducts";
+import deleteProducts from "@/api/products/deleteProduct";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -46,11 +46,11 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
         return Id;
     });
 
-     //console.log("selected categoryIds", productIds);
+    //console.log("selected categoryIds", productIds);
     const queryClient = useQueryClient();
     const { mutate, isPending } = useMutation({
         mutationKey: [],
-        mutationFn: DeleteProducts,
+        mutationFn: deleteProducts,
         onSuccess: (response) => {
             console.log("the res is ", response);
 

@@ -1,41 +1,28 @@
 import { Product } from "@/interfaces/product.schemas";
 import { AxiosError, AxiosResponse } from "axios";
 import { api } from "../api";
+import { APIResponse } from "@/interfaces/common.schemas";
 
-// Define the expected response type
-interface CreateProductResponse {
-    success: boolean;
-    data: Product;
-    message: string;
-    statusCode: number;
-}
-
-const CreateProduct = async (data: FormData): Promise<CreateProductResponse> => {
-    console.log("The Data in CreateProduct API is:", data);
-
+// Use APIResponse<Product> to define the expected response
+const createProduct = async (data: FormData): Promise<APIResponse<Product>> => {
     try {
-        const response: AxiosResponse<CreateProductResponse> =
-            await api.post<CreateProductResponse>(`/products`, data, {
+        const response: AxiosResponse<APIResponse<Product>> =
+            await api.post<APIResponse<Product>>(`/products`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
-        console.log("Response in CreateProduct.ts file: ", response);
+        console.log("The Create Product API Response is:", response);
 
         return response.data;
     } catch (error) {
-         // Ensure error is typed correctly as AxiosError
-         if (error instanceof AxiosError) {
-            if (error.response) {
-                console.error("Server Error:", error.response.data);
-                throw new Error(error.response.data.message || "Server Error");
-            } else if (error.request) {
-                console.error("Network Error:", error.request);
-                throw new Error("Network Error: No response received from the server");
-            }
+        console.log("The Create Product API Error is:", error);
+
+        if (error instanceof AxiosError && error.response) {
+            console.error("Server Error:", error.response.data);
+            throw error.response.data; // Throwing the actual API error response
         }
-        
-        console.error("Unexpected Error:", (error as Error).message);
-        throw new Error((error as Error).message || "An unknown error occurred");
+
+        throw new Error("An unknown error occurred");
     }
 };
 
-export default CreateProduct;
+export default createProduct;

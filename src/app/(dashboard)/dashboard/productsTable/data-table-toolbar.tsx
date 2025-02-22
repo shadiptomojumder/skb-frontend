@@ -16,7 +16,7 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
     return (
         <div className="flex justify-between py-5">
-            <section className="flex items-center min-lg:gap-5 gap-2">
+            <section className="flex items-center min-[424px]:justify-start justify-between min-lg:gap-5 gap-2 w-full">
                 <div className="min-lg:w-[400px] min-md:w-[250px] min-sm:w-[350px]">
                     <Input
                         placeholder="Find by product name..."

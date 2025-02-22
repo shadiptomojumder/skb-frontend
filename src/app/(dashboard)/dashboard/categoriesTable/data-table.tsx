@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         <div className="h-full w-full">
             <DataTableToolbar table={table} setFiltering={setFiltering} filtering={filtering} />
 
-            <div className="rounded-t-lg border-2 px-1">
+            <div className="rounded-t-lg border-2 px-1 min-h-[50dvh]">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

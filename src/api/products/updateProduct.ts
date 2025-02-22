@@ -1,25 +1,41 @@
-import { api } from "../api"
+import { APIResponse } from "@/interfaces/common.schemas";
+import { Product } from "@/interfaces/product.schemas";
+import { AxiosError, AxiosResponse } from "axios";
+import { api } from "../api";
 
-interface ProductProps{
+// Interface for updating a product
+interface UpdateProductProps {
     productId: string;
-    data: object
+    data: FormData;
 }
 
-
-const UpdateProduct = async ({ productId , data }:ProductProps) => {
+const updateProduct = async ({ productId, data }: UpdateProductProps): Promise<APIResponse<Product>> => {
     try {
-        console.log("New Data come:",data);
-        console.log("ProductId:",productId);
-        
-        const response = await api.patch(`/product/${productId}`, data);
-        console.log("Response from UpdateProduct API:", response);
-        
-        return response.data
-    } catch (error) {
-        console.log("Error in UpdateProduct API:",error);
-        
-        throw error
-    }
-}
+        const response: AxiosResponse<APIResponse<Product>> = await api.patch<APIResponse<Product>>(
+            `/products/${productId}`,
+            data,
+            {
+                headers: { "Content-Type": "multipart/form-data" }, // Adjust if handling file uploads
+            },
+        );
+        // Ensure response.data exists and has a `data` property
+        if (!response.data || !response.data.data) {
+            throw new Error("Invalid API response: Missing data field");
+        }
 
-export default UpdateProduct;
+        console.log("Response in updateProduct.ts file:", response);
+
+        return response.data;
+    } catch (error) {
+        console.log("The Update Product API Error is:", error);
+
+        if (error instanceof AxiosError && error.response) {
+            console.error("Server Error:", error.response.data);
+            throw error.response.data; // Throwing the actual API error response
+        }
+
+        throw new Error("An unknown error occurred");
+    }
+};
+
+export default updateProduct;

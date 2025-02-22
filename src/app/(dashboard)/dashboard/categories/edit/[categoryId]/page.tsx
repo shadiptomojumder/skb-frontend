@@ -10,7 +10,7 @@ import { ImageFile } from "@/interfaces/common.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle, PackagePlus } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -20,6 +20,7 @@ const CategoryEditPage = () => {
     const [initialImage, setInitialImage] = useState<string | null>(null);
     const [isImageChanged, setIsImageChanged] = useState<boolean>(false);
     const queryClient = useQueryClient();
+    const router = useRouter();
     
     const params = useParams(); // Get URL parameters
 
@@ -71,6 +72,7 @@ const CategoryEditPage = () => {
                 setImage(null);
                 setInitialImage(null);
                 setIsImageChanged(false);
+                router.push("/dashboard/categories");
             }
         },
         onError: (error: {
