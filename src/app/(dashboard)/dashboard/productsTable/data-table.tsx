@@ -98,7 +98,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell
                                             key={cell.id}
-                                            className="max-sm:last:bg-opacity-[0.01] max-w-[300px] max-sm:right-0 max-sm:last:sticky max-sm:last:bg-white max-sm:last:px-1 max-sm:last:backdrop-blur-sm">
+                                            className="max-w-[300px] max-sm:right-0 max-sm:last:sticky max-sm:last:bg-white max-sm:last:px-1">
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext(),
