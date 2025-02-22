@@ -1,5 +1,3 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -8,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { FileImage } from "lucide-react";
 import Image from "next/image";
+import takaIcon from "../../../../../public/icons/taka.png";
 import Actions from "./actions";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
@@ -99,6 +98,47 @@ export const columns: ColumnDef<Product>[] = [
             return value.includes(categoryValue); // Compare directly
         },
     },
+    {
+        id: "price",
+        accessorKey: "price",
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
+        cell: ({ row }) => {
+            return (
+                <div className="flex items-center gap-0.5 capitalize">
+                    <Image
+                        src={takaIcon}
+                        alt="Taka Icon"
+                        width={50}
+                        height={50}
+                        className="h-[15px] w-[15px]"
+                    />
+
+                    {row.getValue("price")}
+                </div>
+            );
+        },
+    },
+    {
+        id: "finalPrice",
+        accessorKey: "finalPrice",
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Final Price" />,
+        cell: ({ row }) => {
+            return (
+                <div className="flex items-center gap-0.5 capitalize">
+                    <Image
+                        src={takaIcon}
+                        alt="Taka Icon"
+                        width={50}
+                        height={50}
+                        className="h-[15px] w-[15px]"
+                    />
+
+                    {row.getValue("finalPrice")}
+                </div>
+            );
+        },
+    },
+
     {
         id: "stock",
         accessorKey: "stock",
