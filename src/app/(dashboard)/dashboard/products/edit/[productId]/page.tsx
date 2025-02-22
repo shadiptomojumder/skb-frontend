@@ -1,9 +1,8 @@
 "use client";
 import GetCategories from "@/api/categories/getCategories";
-import deleteProductImage from "@/api/products/deleteProductImage";
 import getProductById from "@/api/products/getProductById";
 import updateProduct from "@/api/products/updateProduct";
-
+import ProductImageBoard from "@/components/dashboardComponents/product-image-board";
 import ProductImageSelector from "@/components/dashboardComponents/product-image-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,15 +14,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { Category } from "@/interfaces/category.schemas";
 import { APIError, ImageFile } from "@/interfaces/common.schemas";
 import { ProductFormData, productSchema } from "@/interfaces/product.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { LoaderCircle, PackagePlus, Trash2 } from "lucide-react";
-import Image from "next/image";
+import { LoaderCircle, PackagePlus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -153,15 +150,6 @@ const EditProductPage = () => {
         }
 
         mutate({ productId: productId as string, data: formData });
-    };
-
-    const handleProductImageDelete = async (imageUrl: string) => {
-        const deleteResult = await deleteProductImage({ productId: productId as string, imageUrl });
-        console.log("deleteResult is:", deleteResult);
-        if (deleteResult.statusCode === 200) {
-            toast.success("Image successfully Deleted");
-            queryClient.invalidateQueries({ queryKey: ["product", productId] });
-        }
     };
 
     return (
@@ -361,42 +349,9 @@ const EditProductPage = () => {
                         <h2 className="mb-3 border-b-2 border-primary px-5 py-2 text-lg font-semibold text-primary">
                             Product Media
                         </h2>
-                        <div className="px-5">
-                            <Label htmlFor="picture" className="block py-2 text-base font-semibold">
-                                Product Images
-                            </Label>
-                            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                                {productIsLoading ? (
-                                    <>
-                                        <Skeleton className="h-32 w-full rounded-lg" />
-                                        <Skeleton className="h-32 w-full rounded-lg" />
-                                        <Skeleton className="h-32 w-full rounded-lg" />
-                                        <Skeleton className="h-32 w-full rounded-lg" />
-                                    </>
-                                ) : (
-                                    product?.images.map((image: string, index: number) => (
-                                        <div key={index} className="group relative">
-                                            <Image
-                                                src={image || "/placeholder.svg"}
-                                                alt="Product preview"
-                                                width={100}
-                                                height={100}
-                                                className="h-32 w-full rounded-lg object-cover"
-                                            />
-                                            <div className="absolute top-1/2 left-1/2 flex h-full w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg bg-red-700/30 opacity-0 backdrop-blur-sm backdrop-opacity-10 transition-opacity duration-200 ease-in-out hover:opacity-100">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => handleProductImageDelete(image)}
-                                                    className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm bg-red-200 p-1 text-red-700 opacity-0 shadow-md transition-opacity group-hover:opacity-100"
-                                                    aria-label="Remove image">
-                                                    <Trash2 size={18} />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </div>
+
+                        <ProductImageBoard product={product} productIsLoading={productIsLoading} />
+
                         <div className="px-5">
                             <Label htmlFor="picture" className="block py-2 text-base font-semibold">
                                 Selected Pictures <span className="text-red-600">*</span>
