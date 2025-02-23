@@ -50,7 +50,7 @@ const data = {
             items: [
                 {
                     title: "Homepage Banner",
-                    url: "/dashboard/homepage/banner/create",
+                    url: "/dashboard/banners",
                 },
                 {
                     title: "File Conventions",
