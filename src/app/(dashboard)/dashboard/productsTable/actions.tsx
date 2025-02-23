@@ -60,7 +60,6 @@ const Actions = ({ productId }: { productId: string }) => {
                     <Trash2 size={18} />
                 </button>
                 <button
-                    onClick={() => handleDelete()}
                     className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-green-200 text-green-700">
                     <Eye size={18} />
                 </button>
