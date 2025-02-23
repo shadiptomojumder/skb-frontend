@@ -45,12 +45,12 @@ const data = {
             ],
         },
         {
-            title: "API Reference",
+            title: "Website Setup",
             url: "#",
             items: [
                 {
-                    title: "Components",
-                    url: "#",
+                    title: "Homepage Banner",
+                    url: "/dashboard/homepage/banner/create",
                 },
                 {
                     title: "File Conventions",
