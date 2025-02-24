@@ -79,10 +79,10 @@ const BannersCreatePage = () => {
                     <div>
                         <h2 className="flex gap-2 text-center text-lg font-semibold text-primary sm:text-left">
                             <PackagePlus />
-                            Create New Product Category
+                            Create New Banners
                         </h2>
                         <p className="text-start text-sm sm:text-left">
-                            Select your image and suitable name for product and click create button.
+                            Select your image and suitable name Banners.
                         </p>
                     </div>
                 </div>
