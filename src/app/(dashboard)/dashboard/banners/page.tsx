@@ -9,6 +9,7 @@ const BannerPage = () => {
             <section>
                 <h2>I will create Banner Image Update From 1</h2>
                 <h2>I will create Banner Image Update From 2</h2>
+                <h2>I will create Banner Image Update From 3</h2>
             </section>
         </section>
     );
