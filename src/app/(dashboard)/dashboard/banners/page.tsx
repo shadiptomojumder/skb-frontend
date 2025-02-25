@@ -12,6 +12,7 @@ const BannerPage = () => {
                 <h2>I will create Banner Image Update From 3</h2>
                 <h2>I will create Banner Image Update From 4</h2>
                 <h2>I will create Banner Image Update From 5</h2>
+                <h2>I will create Banner Image Update From 6</h2>
             </section>
         </section>
     );
