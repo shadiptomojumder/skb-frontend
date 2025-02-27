@@ -1,7 +1,7 @@
 import { api } from "../api"
 
 
-const Register = async (data:any) => {
+const Register = async (data:FormData) => {
     // console.log("The Data in Register api is:",data)
     
     try {

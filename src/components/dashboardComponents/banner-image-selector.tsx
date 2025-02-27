@@ -1,12 +1,11 @@
 "use client";
 import getBannerImages from "@/api/banners/getBannerImages";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const BannerImageSelector = () => {
-    const [images, setImages] = useState<string[]>([]);
+    // const [images, setImages] = useState<string[]>([]);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const { data: bannerImages, isLoading } = useQuery({
@@ -16,14 +15,6 @@ const BannerImageSelector = () => {
 
     console.log("bannerImages are:", bannerImages);
 
-    useEffect(() => {
-        // Fetch images from backend
-        axios
-            .get("http://localhost:5000/api/v1/banners/images") // Adjust the API endpoint as needed
-            .then((res) => setImages(res.data))
-            .catch((err) => console.error("Error fetching images:", err));
-    }, []);
-
     const handleSelectImage = (url: string) => {
         setSelectedImage(url);
         // onSelectImage(url); // Pass selected image to parent component or form
@@ -32,16 +23,16 @@ const BannerImageSelector = () => {
     return (
         <div>
             <h2>Select a Banner Image</h2>
-            <div className="flex justify-between flex-wrap gap-4">
+            <div className="flex flex-wrap justify-between gap-4">
                 {isLoading ? (
                     <>
                         <p>Loading...</p>
                     </>
                 ) : (
                     <>
-                        {bannerImages.map((image, index) => {
+                        {bannerImages.map((image:{imageURL:string}, index:number) => {
                             console.log("image");
-                            
+
                             return (
                                 <Image
                                     src={image.imageURL}

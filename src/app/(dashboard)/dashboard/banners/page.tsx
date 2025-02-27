@@ -1,22 +1,12 @@
-import BannerImageSelector from '@/components/dashboardComponents/banner-image-selector';
-import React from 'react';
+import BannerImageSelector from "@/components/dashboardComponents/banner-image-selector";
 
 const BannerPage = () => {
     return (
         <section className="px-4 py-5 sm:px-5 md:px-7 lg:px-12">
             <p>This is Banner Page</p>
-            <BannerImageSelector/>
+            <BannerImageSelector />
             <section>
-                <h2>I will create Banner Image Update From 1</h2>
-                <h2>I will create Banner Image Update From 2</h2>
-                <h2>I will create Banner Image Update From 3</h2>
-                <h2>I will create Banner Image Update From 4</h2>
-                <h2>I will create Banner Image Update From 5</h2>
-                <h2>I will create Banner Image Update From 6</h2>
-                <h2>I will create Banner Image Update From 7</h2>
-                <h2>I will create Banner Image Update From 8</h2>
-                <h2>I will create Banner Image Update From 9</h2>
-                <h2>I will create Banner Image Update From 10</h2>
+                <p>Here i will create banners functionality</p>
             </section>
         </section>
     );

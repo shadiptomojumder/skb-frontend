@@ -1,7 +1,7 @@
 import { api } from "../api"
 
 
-const Logout = async ({userId}:any) => {
+const Logout = async ({userId}:{userId:string}) => {
     try {
         const response = await api.post(`/users/logout`,{userId});
         return response.data

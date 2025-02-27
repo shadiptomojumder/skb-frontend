@@ -1,6 +1,6 @@
 "use client";
 import Logout from "@/api/user/logout";
-import { differenceInMilliseconds, formatDistanceToNow } from "date-fns";
+import { differenceInMilliseconds } from "date-fns";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import React, { createContext, FC, ReactNode, useEffect, useState } from "react";

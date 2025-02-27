@@ -1,9 +1,4 @@
 "use client";
-import Autoplay from "embla-carousel-autoplay";
-import Image from "next/image";
-import Banner5 from "../../../../../../public/banners/banner5.png";
-
-import GetAllProducts from "@/api/products/getProducts";
 import { Card, CardContent } from "@/components/ui/card";
 import {
     Carousel,
@@ -12,16 +7,13 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useQuery } from "@tanstack/react-query";
+import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
 import * as React from "react";
+import Banner5 from "../../../../../../public/banners/banner5.png";
 
 const HeroSection = () => {
     const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: false }));
-    const { data: productList } = useQuery({
-        queryKey: ["productlist", "", ""],
-        queryFn: GetAllProducts,
-    });
-    console.log("productList:", productList);
 
     return (
         <section className="container mx-auto px-3 pt-26 pb-5 sm:px-0 sm:pt-31 md:pt-22">
