@@ -9,8 +9,6 @@ const BannerPage = () => {
                 <p>Here i will create banners functionality</p>
                 <p>Here i will create banners functionality</p>
                 <p>Here i will create banners functionality</p>
-                <p>Here i will create banners functionality</p>
-                
             </section>
         </section>
     );
