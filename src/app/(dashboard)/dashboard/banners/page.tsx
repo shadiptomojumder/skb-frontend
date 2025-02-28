@@ -6,7 +6,6 @@ const BannerPage = () => {
             <p>This is Banner Page</p>
             <BannerImageSelector />
             <section>
-                <p>Here we will create Banner form</p>
             </section>
         </section>
     );
