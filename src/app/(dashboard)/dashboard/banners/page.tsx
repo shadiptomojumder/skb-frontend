@@ -9,6 +9,7 @@ const BannerPage = () => {
                 <p>Here we will create Banner form</p>
                 <p>Here we will create Banner form</p>
                 <p>Here we will create Banner form</p>
+                <p>Here we will create Banner form</p>
             </section>
         </section>
     );
