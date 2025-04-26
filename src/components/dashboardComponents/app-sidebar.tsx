@@ -132,7 +132,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar {...props}>
             <SidebarHeader>
-                <p className="text-center text-3xl font-bold text-black italic">SKB BEST</p>
+                <Link href="/" className="text-center text-3xl font-bold text-black italic">SKB BEST</Link>
                 <SearchForm />
             </SidebarHeader>
             <SidebarContent>
