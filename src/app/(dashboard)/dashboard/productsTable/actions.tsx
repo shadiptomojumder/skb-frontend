@@ -14,6 +14,7 @@ import { AxiosError } from "axios";
 import { Eye, Pencil, Settings2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import AddStock from "./add-stock";
 
 const Actions = ({ productId }: { productId: string }) => {
     const queryClient = useQueryClient();
@@ -37,7 +38,7 @@ const Actions = ({ productId }: { productId: string }) => {
             } else if (error.request) {
                 toast.error("No response received from the server!!");
             } else {
-                console.error("Error while sending the request:", error.message);
+                console.log("Error while sending the request:", error.message);
             }
         },
     });
@@ -51,7 +52,7 @@ const Actions = ({ productId }: { productId: string }) => {
             <div className="hidden items-center gap-2 min-sm:flex">
                 <Link
                     href={`/dashboard/products/edit/${productId}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2992F21C] text-primary">
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#d7f2dc] text-primary">
                     <Pencil size={18} />
                 </Link>
                 <button
@@ -59,13 +60,16 @@ const Actions = ({ productId }: { productId: string }) => {
                     className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-red-200 text-red-700">
                     <Trash2 size={18} />
                 </button>
-                <button
-                    className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-green-200 text-green-700">
+                {/* <button className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-green-100 text-green-700">
                     <Eye size={18} />
-                </button>
+                </button> */}
+                {/* <button className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-sky-100 text-sky-700">
+                    <PackagePlus size={18} />
+                </button> */}
+                <AddStock productId={productId} />
             </div>
             <DropdownMenu>
-                <DropdownMenuTrigger className="hidden w-full justify-center max-sm:flex">
+                <DropdownMenuTrigger asChild className="hidden w-full justify-center max-sm:flex">
                     <button className="w-fit rounded-md bg-gray-100 p-2">
                         <Settings2 size={18} />
                     </button>

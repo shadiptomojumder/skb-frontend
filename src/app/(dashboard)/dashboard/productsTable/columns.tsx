@@ -3,11 +3,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Product } from "@/interfaces/product.schemas";
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
 import { FileImage } from "lucide-react";
 import Image from "next/image";
 import takaIcon from "../../../../../public/icons/taka.png";
 import Actions from "./actions";
+import CnangeSwitch from "./change-switch";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
 export const columns: ColumnDef<Product>[] = [
@@ -46,12 +46,12 @@ export const columns: ColumnDef<Product>[] = [
                         <Image
                             src={firstImage}
                             alt="thumbnail"
-                            width={60}
-                            height={60}
-                            className="min-h-[60px] min-w-[60px]"
+                            width={70}
+                            height={70}
+                            className="aspect-[415/332] min-w-[84px] max-w-[84px] rounded-md object-cover transition-transform duration-300 ease-in-out hover:scale-110"
                         />
                     ) : (
-                        <div className="flex min-h-[60px] w-[60px] min-w-[60px] items-center justify-center bg-slate-200">
+                        <div className="aspect-[415/332] max-w-[84px] w-[84px] flex items-center justify-center rounded-md bg-slate-200">
                             <FileImage />
                         </div>
                     )}
@@ -158,19 +158,55 @@ export const columns: ColumnDef<Product>[] = [
             );
         },
     },
+    // {
+    //     id: "createdAt",
+    //     accessorKey: "createdAt",
+    //     header: ({ column }) => <DataTableColumnHeader column={column} title="Created At" />,
+    //     cell: ({ row }) => {
+    //         const date = new Date(row.getValue("createdAt"));
+    //         return <div className="capitalize">{format(date, "dd MMMM yy")}</div>;
+    //     },
+    // },
     {
-        id: "createdAt",
-        accessorKey: "createdAt",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Created At" />,
+        id: "isFeatured",
+        accessorKey: "isFeatured",
+        header: () => <div>Featured Product</div>,
         cell: ({ row }) => {
-            const date = new Date(row.getValue("createdAt"));
-            return <div className="capitalize">{format(date, "dd MMMM yy")}</div>;
+            const productId = row.getValue("id");
+            const initialValue = row.getValue<boolean>("isFeatured");
+            //console.log("isFeatured", isFeatured);
+
+            return (
+                <CnangeSwitch
+                    fieldName={"isFeatured"}
+                    initialValue={initialValue}
+                    productId={productId as string}
+                />
+            );
+        },
+    },
+    {
+        id: "isWeekendDeal",
+        accessorKey: "isWeekendDeal",
+        header: () => <div>Weekend Deal</div>,
+        cell: ({ row }) => {
+            const productId = row.getValue("id");
+            const initialValue = row.getValue<boolean>("isWeekendDeal");
+            //console.log("isWeekendDeal", isWeekendDeal);
+
+            return (
+                <CnangeSwitch
+                    fieldName={"isWeekendDeal"}
+                    initialValue={initialValue}
+                    productId={productId as string}
+                />
+            );
         },
     },
     {
         id: "id",
         accessorKey: "id",
-        header: () => <div>Actions</div>,
+        header: () => <div className="text-center">Actions</div>,
         cell: ({ row }) => {
             const productId = row.getValue("id");
             //console.log("productId", productId);
@@ -178,15 +214,4 @@ export const columns: ColumnDef<Product>[] = [
             return <Actions productId={productId as string} />;
         },
     },
-
-    // {
-    //     id: "actions",
-    //     enableHiding: false,
-    //     cell: ({ row }) => {
-    //         const product = row.original;
-    //         // console.log("Apointment", apoointment);
-
-    //         return <ActionButton product={product} />;
-    //     },
-    // },
 ];

@@ -14,10 +14,14 @@ interface ProductQueryParams {
     name?: string;
     price?: number;
     sku?: string;
-    category?: string; // Optional: Fetch by category
+    category?: string;
+    isFeatured?: boolean;
+    isWeekendDeal?: boolean;
 }
 
-const getAllProducts = async (queryParams: ProductQueryParams = {}): Promise<Product[]> => {
+const getProducts = async (
+    queryParams: ProductQueryParams = {},
+): Promise<APIResponse<Product[]>> => {
     try {
         // Build query string dynamically
         const buildQueryString = (queryParams: ProductQueryParams) => {
@@ -33,16 +37,17 @@ const getAllProducts = async (queryParams: ProductQueryParams = {}): Promise<Pro
         const queryString = buildQueryString(queryParams);
 
         const url = queryString ? `/products?${queryString}` : "/products";
+        // console.log("The URL is:", url);
 
         const response = await api.get<APIResponse<Product[]>>(url);
-        console.log("The Get ALL Product API Response is:", response);
+        // console.log("The Get ALL Product API Response is:", response);
 
-        return response.data?.data ?? [];
+        return response.data;
     } catch (error) {
         console.log("The Get ALL Product API Error is:", error);
 
         if (error instanceof AxiosError && error.response) {
-            console.error("Server Error:", error.response.data);
+            console.log("Server Error:", error.response.data);
             throw error.response.data; // Throwing the actual API error response
         }
 
@@ -50,4 +55,4 @@ const getAllProducts = async (queryParams: ProductQueryParams = {}): Promise<Pro
     }
 };
 
-export default getAllProducts;
+export default getProducts;

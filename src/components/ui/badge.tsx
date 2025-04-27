@@ -12,7 +12,7 @@ const badgeVariants = cva(
         default:
           "border-transparent bg-primary text-primary-foreground shadow-sm [a&]:hover:bg-primary/90",
         primary:
-          "border-transparent bg-[#2992F21C] text-primary rounded-xs capitalize py-0 [a&]:hover:bg-secondary/90",
+          "border-transparent bg-[#d7f2dc] text-primary rounded-xs capitalize py-0 [a&]:hover:bg-secondary/90",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
         red:

@@ -3,13 +3,13 @@ import { Product } from "@/interfaces/product.schemas";
 import { AxiosError, AxiosResponse } from "axios";
 import { api } from "../api";
 
-const getProductById = async (productId: string): Promise<Product> => {
+const getProductById = async ({ productId }: { productId: string }): Promise<Product> => {
     try {
         const response: AxiosResponse<APIResponse<Product>> = await api.get<APIResponse<Product>>(
             `/products/${productId}`,
         );
 
-        console.log("The Get Product By ID API Response is:", response);
+        // console.log("The Get Product By ID API Response is:", response);
         // Ensure the API response contains valid data
         if (!response.data || !response.data.data) {
             throw new Error("Invalid API response: Missing product data");
@@ -20,7 +20,7 @@ const getProductById = async (productId: string): Promise<Product> => {
         console.log("The Get Product By ID API Error is:", error);
 
         if (error instanceof AxiosError && error.response) {
-            console.error("Server Error:", error.response.data);
+            console.log("Server Error:", error.response.data);
             throw error.response.data; // Throwing the actual API error response
         }
 

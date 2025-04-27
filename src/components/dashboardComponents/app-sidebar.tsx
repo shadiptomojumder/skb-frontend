@@ -74,42 +74,6 @@ const data = {
                 },
             ],
         },
-        {
-            title: "Architecture",
-            url: "#",
-            items: [
-                {
-                    title: "Accessibility",
-                    url: "#",
-                },
-                {
-                    title: "Fast Refresh",
-                    url: "#",
-                },
-                {
-                    title: "Next.js Compiler",
-                    url: "#",
-                },
-                {
-                    title: "Supported Browsers",
-                    url: "#",
-                },
-                {
-                    title: "Turbopack",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Community",
-            url: "#",
-            items: [
-                {
-                    title: "Contribution Guide",
-                    url: "#",
-                },
-            ],
-        },
     ],
 };
 
@@ -132,7 +96,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar {...props}>
             <SidebarHeader>
-                <Link href="/" className="text-center text-3xl font-bold text-black italic">SKB BEST</Link>
+                <p className="text-center text-3xl font-bold text-black italic">Lalon Store</p>
                 <SearchForm />
             </SidebarHeader>
             <SidebarContent>
@@ -155,7 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                                 return (
                                                     <Link key={item.title} href={item.url}>
                                                         <SidebarMenuSubItem
-                                                            className={`cursor-pointer border-l-2 py-2 ps-2 text-sm duration-150 ease-out hover:border-primary hover:bg-[#cee3f6] hover:text-primary ${active ? "border-primary bg-[#cee3f6] font-medium text-primary" : "border-white bg-white text-black"}`}>
+                                                            className={`cursor-pointer border-l-2 py-2 ps-2 text-sm duration-200 ease-out hover:border-primary hover:bg-[#d7f2dc] hover:text-primary ${active ? "border-primary bg-[#d7f2dc] font-medium text-primary" : "border-white font-medium bg-white text-black"}`}>
                                                             {item.title}
                                                         </SidebarMenuSubItem>
                                                     </Link>

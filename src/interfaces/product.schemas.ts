@@ -44,6 +44,8 @@ export const productSchema = z.object({
         .optional(),
 
     isActive: z.boolean().optional(),
+    isWeekendDeal: z.boolean().optional(),
+    isFeatured: z.boolean().optional(),
 
     category: z.string().min(1, { message: "Category is required" }),
 });
@@ -53,6 +55,7 @@ export const productDataSchema = productSchema.extend({
     category: z.object({
         title: z.string(),
         value: z.string(),
+        logo: z.string().url(),
         thumbnail: z.string().url(),
         id: z.string(),
     }),
@@ -63,14 +66,31 @@ export const productDataSchema = productSchema.extend({
 
 // Generate TypeScript types from the schema
 export type Product = z.infer<typeof productDataSchema>;
+export interface IProduct{
+    name: string;
+    price: number;
+    finalPrice:number;
+    discount:number;
+    quantity: string;
+    description:string;
+    stock:number;
+    images:[string];
+    sku:string;
+    isActive:boolean;
+    isWeekendDeal:boolean;
+    isFeatured:boolean;
+    category: {
+        value: string;
+        title: string;
+        logo: string;
+        thumbnail: string;
+        id: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+}
 
 export type ProductFormData = z.infer<typeof productSchema>;
-
-// Product Input Schema (used when accepting input from user)
-export const ProductInput = productSchema.extend({
-    // Use the same validation but make the SKU optional if it's auto-generated
-    sku: z.string().optional(),
-});
 
 // Product Update Schema (to handle updates)
 export const productUpdateSchema = productSchema.partial().extend({

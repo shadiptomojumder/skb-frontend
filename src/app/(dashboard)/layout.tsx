@@ -2,9 +2,12 @@ import { AppSidebar } from "@/components/dashboardComponents/app-sidebar";
 import { TopNavbar } from "@/components/dashboardComponents/top-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import AdminContext from "@/context/admin-context";
+import TokenExpirationContext from "@/context/TokenExpirationContext";
 import TanstackProvider from "@/TanstackProvider/TanstackProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import StoreProvider from "../(pages)/StoreProvider";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -29,17 +32,26 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <TanstackProvider>
-                    <SidebarProvider>
-                        <AppSidebar />
-                        <SidebarInset>
-                            <TopNavbar />
-                            {children}
-                        </SidebarInset>
-                    </SidebarProvider>
-                </TanstackProvider>
-                <Toaster richColors />
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                cz-shortcut-listen="true"
+                suppressHydrationWarning>
+                <StoreProvider>
+                    <TanstackProvider>
+                        <TokenExpirationContext>
+                            <AdminContext role="ADMIN">
+                                <SidebarProvider>
+                                    <AppSidebar />
+                                    <SidebarInset>
+                                        <TopNavbar />
+                                        {children}
+                                    </SidebarInset>
+                                </SidebarProvider>
+                            </AdminContext>
+                        </TokenExpirationContext>
+                    </TanstackProvider>
+                    <Toaster richColors />
+                </StoreProvider>
             </body>
         </html>
     );

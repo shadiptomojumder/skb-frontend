@@ -1,5 +1,5 @@
 "use client";
-import GetCategories from "@/api/categories/getCategories";
+import getCategories from "@/api/categories/getCategories";
 import getProductById from "@/api/products/getProductById";
 import updateProduct from "@/api/products/updateProduct";
 import ProductImageBoard from "@/components/dashboardComponents/product-image-board";
@@ -43,7 +43,7 @@ const EditProductPage = () => {
 
     const { data: product, isLoading: productIsLoading } = useQuery({
         queryKey: ["product", productId],
-        queryFn: () => getProductById(productId as string),
+        queryFn: () => getProductById({ productId: productId as string }),
         staleTime: 0, // Always fetch fresh data
         refetchOnMount: true,
     });
@@ -52,7 +52,7 @@ const EditProductPage = () => {
 
     const { data: categories } = useQuery<Category[]>({
         queryKey: ["categories"],
-        queryFn: GetCategories,
+        queryFn: () => getCategories(),
     });
     // console.log("The categories are:", categories);
 
@@ -63,7 +63,18 @@ const EditProductPage = () => {
         formState: { errors, isDirty },
         reset,
         setValue,
-    } = useForm<ProductFormData>({ resolver: zodResolver(productSchema) });
+    } = useForm<ProductFormData>({
+        resolver: zodResolver(productSchema),
+        defaultValues: {
+            name: product?.name || "",
+            price: product?.price || 0,
+            finalPrice: product?.finalPrice || 0,
+            quantity: product?.quantity || "",
+            category: product?.category?.id || "",
+            description: product?.description || "",
+            images: product?.images || [],
+        },
+    });
 
     useEffect(() => {
         if (product) {
@@ -93,7 +104,7 @@ const EditProductPage = () => {
                 toast.success("Product successfully created");
                 reset();
                 setImages([]);
-                queryClient.invalidateQueries({ queryKey: ["products", "product", productId] });
+                queryClient.invalidateQueries({ queryKey: ["products"] });
                 router.push("/dashboard/products");
             }
         },
@@ -149,6 +160,9 @@ const EditProductPage = () => {
             return;
         }
 
+        console.log("data is:", data);
+        console.log("update is:", updatedData);
+
         mutate({ productId: productId as string, data: formData });
     };
 
@@ -168,7 +182,8 @@ const EditProductPage = () => {
                     <Button
                         type="submit"
                         size="lg"
-                        disabled={(!isDirty && !isImageChanged) || isPending}>
+                        className="hidden lg:block"
+                        disabled={!(isDirty || isImageChanged) || isPending}>
                         {isPending ? (
                             <>
                                 <LoaderCircle className="animate-spin" /> Submiting
@@ -321,27 +336,6 @@ const EditProductPage = () => {
                                     )}
                                 </div>
                             </div>
-
-                            <div className="w-full">
-                                <Label htmlFor="color" className="text-base font-semibold">
-                                    Product Color
-                                    <span className="text-red-600">*</span>
-                                </Label>
-                                <Input
-                                    id="color"
-                                    name="color"
-                                    type="text"
-                                    placeholder="Enter Product color"
-                                    className="mt-2 h-11"
-                                />
-                                <div className="h-5">
-                                    {errors.quantity && (
-                                        <span className="text-xs text-red-500">
-                                            {errors.quantity.message}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
                         </section>
                     </section>
 
@@ -373,6 +367,19 @@ const EditProductPage = () => {
                         </div>
                     </section>
                 </section>
+                <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full mt-5 lg:hidden"
+                        disabled={!(isDirty || isImageChanged) || isPending}>
+                        {isPending ? (
+                            <>
+                                <LoaderCircle className="animate-spin" /> Submiting
+                            </>
+                        ) : (
+                            <>Save & Publish</>
+                        )}
+                    </Button>
             </form>
         </div>
     );

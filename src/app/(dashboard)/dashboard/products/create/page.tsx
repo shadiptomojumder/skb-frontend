@@ -1,7 +1,6 @@
 "use client";
-import GetCategories from "@/api/categories/getCategories";
+import getCategories from "@/api/categories/getCategories";
 import createProduct from "@/api/products/createProduct";
-
 import ProductImageSelector from "@/components/dashboardComponents/product-image-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,7 +29,7 @@ const CreateNewProductPage = () => {
 
     const { data: categories } = useQuery<Category[]>({
         queryKey: ["categories"],
-        queryFn: GetCategories,
+        queryFn: () => getCategories(),
     });
     // console.log("The categories are:", categories);
 
@@ -193,13 +192,12 @@ const CreateNewProductPage = () => {
                                     control={control}
                                     defaultValue=""
                                     render={({ field }) => (
-                                        <Select onValueChange={field.onChange}>
+                                        <Select onValueChange={field.onChange} value={field.value}>
                                             <SelectTrigger className="mt-2 h-11 capitalize focus:ring-primary">
                                                 <SelectValue placeholder="Select Product Category" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {categories &&
-                                                    categories.length > 0 &&
+                                                {categories && categories.length > 0 ? (
                                                     categories.map(
                                                         (category: Category, i: number) => {
                                                             return (
@@ -211,7 +209,14 @@ const CreateNewProductPage = () => {
                                                                 </SelectItem>
                                                             );
                                                         },
-                                                    )}
+                                                    )
+                                                ) : (
+                                                    <SelectItem
+                                                        className="capitalize"
+                                                        value="No Category Found">
+                                                        No Category Found
+                                                    </SelectItem>
+                                                )}
                                             </SelectContent>
                                         </Select>
                                     )}
@@ -240,27 +245,6 @@ const CreateNewProductPage = () => {
                                     className="mt-2 h-11"
                                 />
 
-                                <div className="h-5">
-                                    {errors.quantity && (
-                                        <span className="text-xs text-red-500">
-                                            {errors.quantity.message}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="w-full">
-                                <Label htmlFor="color" className="text-base font-semibold">
-                                    Product Color
-                                    <span className="text-red-600">*</span>
-                                </Label>
-                                <Input
-                                    id="color"
-                                    name="color"
-                                    type="text"
-                                    placeholder="Enter Product color"
-                                    className="mt-2 h-11"
-                                />
                                 <div className="h-5">
                                     {errors.quantity && (
                                         <span className="text-xs text-red-500">
