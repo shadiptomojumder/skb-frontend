@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Footer = () => {
     return (
-        <main className="bg-[#F2F2F2] px-3 pt-16 sm:px-0">
+        <main className="bg-[#F8FAFC] px-3 pt-16 sm:px-0">
             <div className="container mx-auto">
                 <div className="row-gap-6 mb-8 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="sm:col-span-2">
@@ -12,12 +12,12 @@ const Footer = () => {
                             title="Company"
                             className="inline-flex items-center">
                             <h1 className="text-3xl font-extrabold dark:text-primary">
-                                Lalon Store
+                                SKB BEST
                             </h1>
                         </Link>
                         <div className="mt-6 lg:max-w-sm">
                             <p className="text-sm text-gray-800 dark:text-gray-200">
-                                At Lalon Store, we offer a curated selection of high-quality
+                                At SKB BEST, we offer a curated selection of high-quality
                                 products to meet all your lifestyle needs. From everyday essentials
                                 and trendy apparel to unique gifts and home décor, our dedicated
                                 team is committed to providing you with an exceptional shopping

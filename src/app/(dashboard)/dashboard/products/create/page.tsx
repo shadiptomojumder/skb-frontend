@@ -88,7 +88,7 @@ const CreateNewProductPage = () => {
     };
     return (
         <div className="px-4 py-5 sm:px-5 md:px-7 lg:px-12">
-            <form className="" onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-5 flex flex-col items-start justify-between gap-3 lg:flex-row">
                     <div>
                         <h2 className="flex gap-2 text-center text-lg font-semibold text-primary sm:text-left">
@@ -111,7 +111,8 @@ const CreateNewProductPage = () => {
                 </div>
 
                 <section className="flex flex-col justify-between gap-5 lg:flex-row">
-                    <section className="col-span-7 rounded-lg border-2 bg-gray-100 pb-5 lg:w-[80%]">
+                    {/* First element */}
+                    <section className="rounded-lg border-2 bg-gray-100 pb-5 lg:w-[80%]">
                         <h2 className="mb-3 border-b-2 border-primary px-5 py-2 text-lg font-semibold text-primary">
                             General information
                         </h2>
@@ -125,7 +126,7 @@ const CreateNewProductPage = () => {
                                 name="name"
                                 type="text"
                                 placeholder="Enter Product Name"
-                                className="mt-2 h-11"
+                                className="mt-2 h-11 bg-white"
                             />
 
                             <div className="h-5">
@@ -146,7 +147,7 @@ const CreateNewProductPage = () => {
                                 id="description"
                                 name="description"
                                 placeholder="Enter Product Description"
-                                className="mt-2 h-11 outline-primary"
+                                className="mt-2 h-11 bg-white outline-primary"
                             />
 
                             <div className="h-5">
@@ -171,7 +172,7 @@ const CreateNewProductPage = () => {
                                     name="price"
                                     type="number"
                                     placeholder="Enter Product Price"
-                                    className="mt-2 h-11"
+                                    className="mt-2 h-11 bg-white"
                                 />
 
                                 <div className="h-5">
@@ -193,7 +194,7 @@ const CreateNewProductPage = () => {
                                     defaultValue=""
                                     render={({ field }) => (
                                         <Select onValueChange={field.onChange} value={field.value}>
-                                            <SelectTrigger className="mt-2 h-11 capitalize focus:ring-primary">
+                                            <SelectTrigger className="mt-2 h-11 bg-white capitalize focus:ring-primary">
                                                 <SelectValue placeholder="Select Product Category" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -242,7 +243,7 @@ const CreateNewProductPage = () => {
                                     name="quantity"
                                     type="text"
                                     placeholder="Enter Product Quantity"
-                                    className="mt-2 h-11"
+                                    className="mt-2 h-11 bg-white"
                                 />
 
                                 <div className="h-5">
@@ -256,13 +257,14 @@ const CreateNewProductPage = () => {
                         </section>
                     </section>
 
-                    <section className="col-span-4 h-fit rounded-lg border-2 bg-gray-100 lg:w-[600px] lg:max-w-[600px]">
+                    {/* secoend element */}
+                    <section className="rounded-lg border-2 bg-gray-100 lg:w-[600px] lg:max-w-[600px]">
                         <h2 className="mb-3 border-b-2 border-primary px-5 py-2 text-lg font-semibold text-primary">
                             Product Media
                         </h2>
                         <div className="px-5">
-                            <Label htmlFor="picture" className="text-base font-semibold">
-                                Product Picture <span className="text-red-600">*</span>
+                            <Label htmlFor="picture" className="block py-2 text-base font-semibold">
+                                Select Images <span className="text-red-600">*</span>
                             </Label>
 
                             <ProductImageSelector

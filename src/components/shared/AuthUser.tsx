@@ -8,7 +8,7 @@ import {
 import useLogout from "@/hooks/useLogout ";
 import { setLoading } from "@/lib/slices/userSlice";
 import { RootState } from "@/lib/store";
-import { CircleUser, FileClock, LayoutDashboard, LogOut, ShoppingCart, User } from "lucide-react";
+import { CircleUser, LayoutDashboard, LogOut, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +30,7 @@ const AuthUser = () => {
         <>
             <Link
                 href="/checkout"
-                className="relative hidden rounded-md bg-accent p-2 text-primary sm:block">
+                className="relative rounded-md bg-accent p-2 text-black drop-shadow-lg">
                 <ShoppingCart size={20} />
                 {items && items.length > 0 ? (
                     <div className="absolute -top-2.5 -right-2 flex h-[20px] w-[20px] items-center justify-center rounded-full bg-blue-200 text-xs font-semibold">
@@ -51,43 +51,31 @@ const AuthUser = () => {
                                     {/* <div className="flex cursor-pointer items-center gap-1.5 rounded-md bg-accent p-2 text-sm font-semibold text-primary">
                                         <CircleUser size={20} /> <span className="hidden sm:block">Shadipto</span>
                                     </div> */}
-                                    <div className="flex cursor-pointer items-center gap-1.5 rounded-full bg-accent p-0 text-sm font-semibold text-primary sm:rounded-md sm:p-2">
+                                    <div className="sm:flex hidden cursor-pointer items-center gap-1.5 rounded-full bg-accent p-0 text-sm font-semibold text-black drop-shadow-lg sm:rounded-md sm:p-2">
                                         <CircleUser className="h-[35px] w-[35px] sm:h-[20px] sm:w-[20px]" />{" "}
-                                        <span className="hidden capitalize sm:block">
+                                        <span className="capitalize">
                                             {user?.firstName}
                                         </span>
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="z-[2255] grid w-56 gap-1.5 p-2">
-                                    <DropdownMenuItem asChild className="focus:bg-[#d7f2dc8e]">
+                                    <DropdownMenuItem asChild className="focus:bg-[#F8FAFC]">
                                         <Link
                                             href="/my-profile"
-                                            className="flex items-center gap-2 rounded-md border-2 border-[#d7f2dc8e] bg-[#d7f2dc8e] p-2 text-primary transition duration-300 ease-in-out hover:border-primary hover:bg-[#d7f2dc8e]">
-                                            <User size={20} className="text-primary" />
+                                            className="flex items-center gap-2 rounded-md border-2 border-gray-200 bg-white p-2 text-primary transition duration-300 ease-in-out hover:border-gray-400 hover:bg-[#F8FAFC]">
+                                            <User size={20} className="text-black" />
                                             <p className="text-sm font-medium text-gray-800">
                                                 My Profile
                                             </p>
                                         </Link>
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem asChild className="focus:bg-[#d7f2dc8e]">
-                                        <Link
-                                            href="/order-history"
-                                            className="flex items-center gap-2 rounded-md border-2 border-[#d7f2dc8e] bg-[#d7f2dc8e] p-2 text-primary transition duration-300 ease-in-out hover:border-primary hover:bg-[#d7f2dc8e]">
-                                            <FileClock size={20} className="text-primary" />
-                                            <p className="text-sm font-medium text-gray-800">
-                                                Order History
-                                            </p>
-                                        </Link>
-                                    </DropdownMenuItem>
+
                                     {user && user.role === "ADMIN" && (
-                                        <DropdownMenuItem asChild className="focus:bg-[#d7f2dc8e]">
+                                        <DropdownMenuItem asChild className="focus:bg-[#F8FAFC]">
                                             <Link
                                                 href="/dashboard"
-                                                className="flex items-center gap-2 rounded-md border-2 border-[#d7f2dc8e] bg-[#d7f2dc8e] p-2 text-primary transition duration-300 ease-in-out hover:border-primary hover:bg-[#d7f2dc8e]">
-                                                <LayoutDashboard
-                                                    size={20}
-                                                    className="text-primary"
-                                                />
+                                                className="flex items-center gap-2 rounded-md border-2 border-gray-200 bg-white p-2 text-primary transition duration-300 ease-in-out hover:border-gray-400 hover:bg-[#F8FAFC]">
+                                                <LayoutDashboard size={20} className="text-black" />
                                                 <p className="text-sm font-medium text-gray-800">
                                                     Dashboard
                                                 </p>
@@ -95,11 +83,11 @@ const AuthUser = () => {
                                         </DropdownMenuItem>
                                     )}
 
-                                    <DropdownMenuItem asChild className="focus:bg-[#d7f2dc8e]">
+                                    <DropdownMenuItem asChild className="focus:bg-[#F8FAFC]">
                                         <button
                                             onClick={handleLogout}
-                                            className="flex cursor-pointer items-center gap-2 rounded-md border-2 border-[#d7f2dc8e] bg-[#d7f2dc8e] p-2 text-primary transition duration-300 ease-in-out hover:border-primary hover:bg-[#d7f2dc8e]">
-                                            <LogOut size={20} className="text-primary" />
+                                            className="flex cursor-pointer items-center gap-2 rounded-md border-2 border-gray-200 bg-white p-2 text-primary transition duration-300 ease-in-out hover:border-gray-400 hover:bg-[#F8FAFC]">
+                                            <LogOut size={20} className="text-black" />
                                             <p className="text-sm font-medium text-gray-800">
                                                 Logout
                                             </p>
@@ -112,9 +100,8 @@ const AuthUser = () => {
                         <>
                             <Link
                                 href="/login"
-                                className="flex items-center gap-0.5 rounded-md bg-accent p-2 text-sm font-semibold text-nowrap text-primary sm:gap-1.5">
-                                <CircleUser size={19} className="hidden sm:block" /> Sign in
-                                <span className="max-[430px]:hidden"> / Sign up</span>
+                                className="flex items-center gap-0.5 rounded-md bg-accent p-2 text-sm font-semibold text-nowrap text-black drop-shadow-lg sm:gap-1.5">
+                                <CircleUser size={20} className="" />
                             </Link>
                         </>
                     )}

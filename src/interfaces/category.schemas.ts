@@ -5,7 +5,7 @@ export const categorySchema = z.object({
     title: z
         .string()
         .min(3, "Category title must be at least 3 characters")
-        .max(50, "Category title not more than 50 characters")
+        .max(100, "Category title not more than 100 characters")
         .trim(),
     logo: z.any().optional(),
     thumbnail: z.any().optional(),

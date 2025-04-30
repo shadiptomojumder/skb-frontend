@@ -47,7 +47,7 @@ const AddToCartButton = ({ product }: { product: Product }) => {
             ) : (
                 <button
                     onClick={handleAddToCart}
-                    className="hidden w-full cursor-pointer items-center justify-center gap-1 rounded-full bg-primary py-1 text-white shadow-lg sm:flex">
+                    className="hidden w-full cursor-pointer items-center justify-center gap-1 rounded-full bg-[#00B307] py-1 text-white shadow-lg sm:flex">
                     <ShoppingCart size={20} />
                     Add to cart
                 </button>
