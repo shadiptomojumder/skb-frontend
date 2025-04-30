@@ -20,7 +20,7 @@ const FaqSection = () => {
                             products, and how we can help you achieve your goals.
                         </p>
                         <p className="max-w-[600px] text-gray-500">
-                            Can't find what you're looking for? Feel free to contact our support
+                            Can&lsquo;t find what you&lsquo;re looking for? Feel free to contact our support
                             team for more assistance.
                         </p>
                     </div>
@@ -42,7 +42,7 @@ const FaqSection = () => {
                                 Principle of the equipment? Filtered oil?
                                 </AccordionTrigger>
                                 <AccordionContent className="text-base">
-                                Our equipment is filtered through physical reverse osmosis without adding any chemicals. It’s an environmentally friendly material (resin material, polypropylene, activated carbon, etc.) with a filtration accuracy of up to 0.5 microns. The filtered oil can reach the target of 98% new oil，and can be recycled.
+                                Our equipment is filtered through physical reverse osmosis without adding any chemicals. Its an environmentally friendly material (resin material, polypropylene, activated carbon, etc.) with a filtration accuracy of up to 0.5 microns. The filtered oil can reach the target of 98% new oil and can be recycled.
                                 </AccordionContent>
                             </AccordionItem>
 

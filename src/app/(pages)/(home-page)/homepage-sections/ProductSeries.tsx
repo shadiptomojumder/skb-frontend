@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { Category } from "@/interfaces/category.schemas";
 import { useQuery } from "@tanstack/react-query";
-import { ChevronRight, CircleChevronRight, MoveRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,17 +27,17 @@ const ProductSeries = () => {
                         dragFree: true,
                     }}>
                     <div className="flex justify-between pb-8">
-                        <h2 className="font-roboto md:text-4xl text-2xl font-bold text-black">
+                        <h2 className="font-roboto text-2xl font-bold text-black md:text-4xl">
                             Product Series
                         </h2>
                         <div className="relative w-[80px]">
                             <CarouselPrevious
                                 variant="default"
-                                className="absolute top-1/2 left-0 z-50 bg-white text-black border-2 border-black"
+                                className="absolute top-1/2 left-0 z-50 border-2 border-black bg-white text-black"
                             />
                             <CarouselNext
                                 variant="default"
-                                className="absolute top-1/2 right-0 z-50 bg-white text-black border-2 border-black"
+                                className="absolute top-1/2 right-0 z-50 border-2 border-black bg-white text-black"
                             />
                         </div>
                     </div>
@@ -76,7 +76,9 @@ const ProductSeries = () => {
                                                             className="aspect-[400/480] object-cover object-center transition-transform duration-300 group-hover:scale-115"
                                                         />
                                                     </div>
-                                                    <div className="h-10 w-10 flex justify-center items-center rounded-full bg-white absolute top-[68%] group-hover:top-1/2 left-1/2 -translate-x-1/2 z-30 group-hover:-translate-y-1/2 transition-all ease-in-out duration-300 opacity-0 group-hover:opacity-100"><ChevronRight /></div>
+                                                    <div className="absolute top-[68%] left-1/2 z-30 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full bg-white opacity-0 transition-all duration-300 ease-in-out group-hover:top-1/2 group-hover:-translate-y-1/2 group-hover:opacity-100">
+                                                        <ChevronRight />
+                                                    </div>
                                                     <p className="mt-3 text-center text-base font-semibold capitalize sm:text-xl">
                                                         {category?.title}
                                                     </p>
