@@ -67,64 +67,71 @@ const ProductPage = () => {
     };
 
     return (
-        <div className="container mx-auto px-3 pt-5 pb-5 sm:px-0 sm:pt-10">
-            {categoryId && (
-                <>
-                    {categoryIsLoading ? (
-                        <Skeleton className="aspect-[5.88] h-full w-full bg-gray-300"></Skeleton>
-                    ) : (
-                        <>
-                            {category && (
-                                <div>
-                                    <Image
-                                        src={category?.thumbnail}
-                                        alt={category?.title}
-                                        height={100}
-                                        width={250}
-                                        className="aspect-[5.88] h-full w-full"
-                                    />
-                                </div>
-                            )}
-                        </>
-                    )}
-                </>
-            )}
-            <Suspense fallback={<div>Loading search...</div>}>
-                <ProductFilterBar filters={filters} pathname={pathname} router={router} />
-            </Suspense>
-
-            <div className="">
-                {isLoading ? (
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                        {Array.from({ length: 5 }, (_, index) => (
-                            <ProductLoading key={index} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                        {products?.map((product: Product) => {
-                            return <ProductCard key={product?.id} product={product} />;
-                        })}
-                    </div>
+        <div className="bg-slate-100 px-2 py-6 sm:px-0 sm:py-10">
+            <div className="container mx-auto">
+                {categoryId && (
+                    <>
+                        {categoryIsLoading ? (
+                            <Skeleton className="aspect-[5.88] h-full w-full bg-gray-300"></Skeleton>
+                        ) : (
+                            <>
+                                {category && (
+                                    <div className="relative mb-10 h-[400px] w-full rounded-md bg-green-300">
+                                        {/* Gray Overlay */}
+                                        <div className="absolute inset-0 z-10 rounded-lg bg-black/20 transition-opacity duration-300" />
+                                        <Image
+                                            src={category?.thumbnail}
+                                            alt={category?.title}
+                                            height={50}
+                                            width={50}
+                                            className="aspect-[16/9] h-full w-full object-cover"
+                                        />
+                                        <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-7xl font-bold text-white text-shadow-lg">
+                                            {category?.title}
+                                        </p>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </>
                 )}
+                <Suspense fallback={<div>Loading search...</div>}>
+                    <ProductFilterBar filters={filters} pathname={pathname} router={router} />
+                </Suspense>
 
-                {/* Product Not Found */}
-                {products?.length === 0 ? (
-                    <div className="flex h-[45dvh] items-center justify-center">
-                        <p className="text-center text-lg font-semibold text-gray-500">
-                            No products found here.
-                        </p>
-                    </div>
-                ) : null}
+                <div className="py-20">
+                    {isLoading ? (
+                        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                            {Array.from({ length: 5 }, (_, index) => (
+                                <ProductLoading key={index} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+                            {products?.map((product: Product) => {
+                                return <ProductCard key={product?.id} product={product} />;
+                            })}
+                        </div>
+                    )}
+
+                    {/* Product Not Found */}
+                    {products?.length === 0 ? (
+                        <div className="flex h-[45dvh] items-center justify-center">
+                            <p className="text-center text-lg font-semibold text-gray-500">
+                                No products found here.
+                            </p>
+                        </div>
+                    ) : null}
+                </div>
+
+                {products && products.length > 15 && (
+                    <ProductPagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
+                )}
             </div>
-
-            {products && products.length > 0 && (
-                <ProductPagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                />
-            )}
         </div>
     );
 };

@@ -138,27 +138,7 @@ const CreateNewProductPage = () => {
                             </div>
                         </div>
 
-                        <div className="px-5">
-                            <Label htmlFor="description" className="text-base font-semibold">
-                                Product Description <span className="text-red-600">*</span>
-                            </Label>
-                            <Textarea
-                                {...register("description")}
-                                id="description"
-                                name="description"
-                                placeholder="Enter Product Description"
-                                className="mt-2 h-11 bg-white outline-primary"
-                            />
-
-                            <div className="h-5">
-                                {errors.description && (
-                                    <span className="text-xs text-red-500">
-                                        {errors.description.message}
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-
+                        {/* Product Price and Category */}
                         <section className="flex flex-col items-center justify-between px-5 sm:gap-5 xl:flex-row">
                             <div className="w-full">
                                 <Label htmlFor="price" className="text-base font-semibold">
@@ -232,29 +212,27 @@ const CreateNewProductPage = () => {
                             </div>
                         </section>
 
-                        <section className="flex flex-col items-center justify-between px-5 sm:gap-5 xl:flex-row">
-                            <div className="w-full">
-                                <Label htmlFor="quantity" className="text-base font-semibold">
-                                    Product Quantity <span className="text-red-600">*</span>
-                                </Label>
-                                <Input
-                                    {...register("quantity")}
-                                    id="quantity"
-                                    name="quantity"
-                                    type="text"
-                                    placeholder="Enter Product Quantity"
-                                    className="mt-2 h-11 bg-white"
-                                />
+                        {/* Product Description */}
+                        <div className="px-5">
+                            <Label htmlFor="description" className="text-base font-semibold">
+                                Product Description <span className="text-red-600">*</span>
+                            </Label>
+                            <Textarea
+                                {...register("description")}
+                                id="description"
+                                name="description"
+                                placeholder="Enter Product Description"
+                                className="mt-2 h-38 bg-white outline-primary"
+                            />
 
-                                <div className="h-5">
-                                    {errors.quantity && (
-                                        <span className="text-xs text-red-500">
-                                            {errors.quantity.message}
-                                        </span>
-                                    )}
-                                </div>
+                            <div className="h-5">
+                                {errors.description && (
+                                    <span className="text-xs text-red-500">
+                                        {errors.description.message}
+                                    </span>
+                                )}
                             </div>
-                        </section>
+                        </div>
                     </section>
 
                     {/* secoend element */}

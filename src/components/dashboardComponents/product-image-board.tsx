@@ -72,7 +72,7 @@ const ProductImageBoard = ({ product, productIsLoading }: ProductImageBoardProps
                                 alt="Product preview"
                                 width={100}
                                 height={100}
-                                className="h-32 w-full rounded-lg object-cover"
+                                className="aspect-[800/800] rounded-lg object-cover"
                             />
 
                             {loadingImage === image ? (

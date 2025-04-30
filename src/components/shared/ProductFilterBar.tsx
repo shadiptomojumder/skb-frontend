@@ -38,28 +38,30 @@ const ProductFilterBar: React.FC<ProductFilterBarProps> = ({ filters, router, pa
                     <Button
                         onClick={() => updateSorting("", "")}
                         variant={"outline"}
-                        className={`h-7 border-none bg-slate-100 px-2 text-xs text-black shadow-md hover:text-black sm:h-9 sm:px-4 sm:py-2 sm:text-sm ${
-                            !sortBy ? "bg-[#73dd76] font-medium hover:bg-[#73dd76]" : ""
+                        className={`h-7 border-none px-2 text-xs shadow-md transition-all duration-200 ease-in-out hover:text-black sm:h-9 sm:px-4 sm:py-2 sm:text-sm ${
+                            !sortBy
+                                ? "bg-gray-800 font-medium text-white hover:bg-gray-800 hover:text-white"
+                                : "bg-slate-100 text-black"
                         }`}>
                         Default
                     </Button>
                     <Button
                         onClick={() => updateSorting("price", "asc")}
                         variant={"outline"}
-                        className={`h-7 border-none bg-slate-100 px-2 text-xs text-black shadow-md hover:text-black sm:h-9 sm:px-4 sm:py-2 sm:text-sm ${
+                        className={`h-7 border-none px-2 text-xs shadow-md transition-all duration-200 ease-in-out hover:text-black sm:h-9 sm:px-4 sm:py-2 sm:text-sm ${
                             sortBy === "price" && sortOrder === "asc"
-                                ? "bg-[#73dd76] font-medium hover:bg-[#73dd76]"
-                                : ""
+                                ? "bg-gray-800 font-medium text-white hover:bg-gray-800 hover:text-white"
+                                : "bg-slate-100 text-black"
                         }`}>
                         Price asc
                     </Button>
                     <Button
                         onClick={() => updateSorting("price", "desc")}
                         variant={"outline"}
-                        className={`h-7 border-none bg-slate-100 px-2 text-xs text-black shadow-md hover:text-black sm:h-9 sm:px-4 sm:py-2 sm:text-sm ${
+                        className={`h-7 border-none px-2 text-xs shadow-md transition-all duration-200 ease-in-out hover:text-black sm:h-9 sm:px-4 sm:py-2 sm:text-sm ${
                             sortBy === "price" && sortOrder === "desc"
-                                ? "bg-[#73dd76] font-medium hover:bg-[#73dd76]"
-                                : ""
+                                ? "bg-gray-800 font-medium text-white hover:bg-gray-800 hover:text-white"
+                                : "bg-slate-100 text-black"
                         }`}>
                         Price desc
                     </Button>

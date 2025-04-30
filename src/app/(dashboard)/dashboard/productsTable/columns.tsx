@@ -48,10 +48,10 @@ export const columns: ColumnDef<Product>[] = [
                             alt="thumbnail"
                             width={70}
                             height={70}
-                            className="aspect-[415/332] min-w-[84px] max-w-[84px] rounded-md object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+                            className="aspect-[800/800] max-w-[84px] min-w-[84px] rounded-md object-cover transition-transform duration-300 ease-in-out hover:scale-110"
                         />
                     ) : (
-                        <div className="aspect-[415/332] max-w-[84px] w-[84px] flex items-center justify-center rounded-md bg-slate-200">
+                        <div className="flex aspect-[800/800] w-[84px] max-w-[84px] items-center justify-center rounded-md bg-slate-200">
                             <FileImage />
                         </div>
                     )}
@@ -85,12 +85,22 @@ export const columns: ColumnDef<Product>[] = [
         header: ({ column }) => <DataTableColumnHeader column={column} title="Category" />,
         cell: ({ row }) => {
             const category = row.original.category; // Access full category object
+            const truncate = (str: string, max = 30) => {
+                return str.length > max ? str.slice(0, max) + "..." : str;
+            };
             return (
-                <div className="w-fit text-base text-nowrap capitalize">
-                    <Badge variant="primary" className="">
-                        {category?.title}
-                    </Badge>
-                </div>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <div className="w-fit text-base text-nowrap capitalize">
+                                <Badge variant="primary" className="">
+                                    {truncate(category?.title)}
+                                </Badge>
+                            </div>
+                        </TooltipTrigger>
+                        <TooltipContent>{category?.title}</TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
             );
         },
         filterFn: (row, id, value) => {

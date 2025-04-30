@@ -62,7 +62,6 @@ const EditProductPage = () => {
         defaultValues: {
             name: product?.name || "",
             price: product?.price || 0,
-            quantity: product?.quantity || "",
             category: product?.category?.id || "",
             description: product?.description || "",
         },
@@ -76,14 +75,12 @@ const EditProductPage = () => {
             setValue("name", product.name);
             setValue("description", product.description);
             setValue("price", product.price);
-            setValue("quantity", product.quantity);
             setValue("category", product.category.id);
 
             setInitialData({
                 name: product.name,
                 description: product.description,
                 price: product.price,
-                quantity: product.quantity,
                 category: product.category.id,
             });
         }
@@ -303,30 +300,6 @@ const EditProductPage = () => {
                                     {errors.category && (
                                         <span className="text-sm text-red-500">
                                             {errors.category.message}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </section>
-
-                        <section className="flex flex-col items-center justify-between px-5 sm:gap-5 xl:flex-row">
-                            <div className="w-full">
-                                <Label htmlFor="quantity" className="text-base font-semibold">
-                                    Product Quantity <span className="text-red-600">*</span>
-                                </Label>
-                                <Input
-                                    {...register("quantity")}
-                                    id="quantity"
-                                    name="quantity"
-                                    type="text"
-                                    placeholder="Enter Product Quantity"
-                                    className="mt-2 h-11 bg-white"
-                                />
-
-                                <div className="h-5">
-                                    {errors.quantity && (
-                                        <span className="text-xs text-red-500">
-                                            {errors.quantity.message}
                                         </span>
                                     )}
                                 </div>

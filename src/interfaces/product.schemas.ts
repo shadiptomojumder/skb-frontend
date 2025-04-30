@@ -18,11 +18,6 @@ export const productSchema = z.object({
         .max(100, { message: "Discount must be between 0 and 100" })
         .optional(), // Discount is optional
 
-    quantity: z
-        .string()
-        .min(1, { message: "Quantity is required" })
-        .max(50, { message: "Quantity should not exceed 50 characters" }),
-
     description: z
         .string()
         .max(1000, { message: "Description should not exceed 1000 characters" })
@@ -67,7 +62,6 @@ export interface IProduct{
     price: number;
     finalPrice:number;
     discount:number;
-    quantity: string;
     description:string;
     stock:number;
     images:[string];

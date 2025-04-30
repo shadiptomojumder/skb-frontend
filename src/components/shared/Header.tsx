@@ -50,10 +50,10 @@ const Header = () => {
                         <Link href="/" className="font-montserrat text-lg font-semibold">
                             Catelog
                         </Link>
-                        <Link href="/" className="font-montserrat text-lg font-semibold">
+                        <Link href="/about" className="font-montserrat text-lg font-semibold">
                             About Us
                         </Link>
-                        <Link href="/" className="font-montserrat text-lg font-semibold">
+                        <Link href="/contact" className="font-montserrat text-lg font-semibold">
                             Contact
                         </Link>
                     </section>

@@ -38,10 +38,6 @@ const data = {
                     title: "Add New Category",
                     url: "/dashboard/categories/create",
                 },
-                {
-                    title: "Styling",
-                    url: "#",
-                },
             ],
         },
         {
