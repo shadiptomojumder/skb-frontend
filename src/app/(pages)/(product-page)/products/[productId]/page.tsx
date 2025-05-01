@@ -59,7 +59,7 @@ const ProductDetailsPage = () => {
                         <div className="mx-auto rounded-lg text-center sm:mx-0 sm:text-start">
                             <p className="mb-5 text-4xl font-bold text-gray-900">{product?.name}</p>
                             <p className="border-b-2 border-gray-200 pb-4 text-base font-medium text-[#1a1a1ab3]">
-                                TK {formatPrice(product?.price)}
+                                TK {formatPrice(product?.price)} (Without shiping cost)
                             </p>
                             <p className="py-10 text-base whitespace-pre-wrap text-[#1a1a1ab3]">
                                 {product?.description}

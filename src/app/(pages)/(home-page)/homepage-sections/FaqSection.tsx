@@ -7,7 +7,7 @@ import {
 
 const FaqSection = () => {
     return (
-        <section className="w-full bg-slate-100 py-12 md:py-24 lg:py-32">
+        <section className="w-full bg-slate-100 px-2 sm:px-0 py-12 md:py-24 lg:py-32">
             <div className="container mx-auto">
                 <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
                     {/* Left side - Title and description */}

@@ -30,14 +30,14 @@ export default function AboutUs() {
                             <p className="text-muted-foreground">
                                 Founded in 2015, our company has been at the forefront of innovation
                                 in our industry. We started with a simple mission: to provide
-                                exceptional products and services that make a difference in people&lsquo;s
-                                lives.
+                                exceptional products and services that make a difference in
+                                people&lsquo;s lives.
                             </p>
                             <p className="text-muted-foreground">
                                 Over the years, we&lsquo;ve grown from a small team of passionate
                                 individuals to a thriving organization with offices around the
-                                world. Despite our growth, we&lsquo;ve remained true to our core values of
-                                integrity, excellence, and customer satisfaction.
+                                world. Despite our growth, we&lsquo;ve remained true to our core
+                                values of integrity, excellence, and customer satisfaction.
                             </p>
                         </div>
                     </div>
@@ -55,11 +55,11 @@ export default function AboutUs() {
                                 oil regeneration machines, including oil-water separation machines,
                                 and oil purification machines, widely used in industries such as
                                 petrochemicals, power generation, metallurgy, shipping, and
-                                mechanical manufacturing. Whether it&lsquo;s constructing new facilities
-                                or upgrading existing equipment, we can provide professional
-                                solutions to help customers achieve their goals of energy saving,
-                                emission reduction, improved production efficiency, and cost
-                                reduction.
+                                mechanical manufacturing. Whether it&lsquo;s constructing new
+                                facilities or upgrading existing equipment, we can provide
+                                professional solutions to help customers achieve their goals of
+                                energy saving, emission reduction, improved production efficiency,
+                                and cost reduction.
                             </p>
                             <ul className="space-y-2 text-muted-foreground">
                                 <li className="flex items-start">
@@ -133,9 +133,11 @@ export default function AboutUs() {
                         business grow and succeed.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Button size="lg" className="bg-gray-800 hover:bg-gray-800">
-                            Contact Us
-                        </Button>
+                        <Link href="/contact">
+                            <Button size="lg" className="bg-gray-800 hover:bg-gray-800">
+                                Contact Us
+                            </Button>
+                        </Link>
                         <Link href="/products">
                             <Button
                                 size="lg"

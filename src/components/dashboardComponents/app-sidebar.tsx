@@ -38,6 +38,14 @@ const data = {
                     title: "Add New Category",
                     url: "/dashboard/categories/create",
                 },
+                {
+                    title: "All Blogs",
+                    url: "/dashboard/blogs",
+                },
+                {
+                    title: "Add New Blogs",
+                    url: "/dashboard/blogs/create",
+                },
             ],
         },
         {
@@ -47,10 +55,6 @@ const data = {
                 {
                     title: "All Banners",
                     url: "/dashboard/banners",
-                },
-                {
-                    title: "File Conventions",
-                    url: "#",
                 },
             ],
         },

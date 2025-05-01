@@ -56,6 +56,9 @@ const Header = () => {
                         <Link href="/contact" className="font-montserrat text-lg font-semibold">
                             Contact
                         </Link>
+                        <Link href="/blogs" className="font-montserrat text-lg font-semibold">
+                            Blogs
+                        </Link>
                     </section>
                     <section className="flex items-center gap-3 justify-self-end">
                         <AuthUser />

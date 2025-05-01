@@ -33,11 +33,11 @@ const ProductSeries = () => {
                         <div className="relative w-[80px]">
                             <CarouselPrevious
                                 variant="default"
-                                className="absolute top-1/2 left-0 z-50 border-2 border-black bg-white text-black"
+                                className="absolute top-1/2 left-0 z-50 border-2 border-black bg-white hover:bg-slate-100 text-black"
                             />
                             <CarouselNext
                                 variant="default"
-                                className="absolute top-1/2 right-0 z-50 border-2 border-black bg-white text-black"
+                                className="absolute top-1/2 right-0 z-50 border-2 border-black bg-white hover:bg-slate-100 text-black"
                             />
                         </div>
                     </div>

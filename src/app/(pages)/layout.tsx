@@ -1,4 +1,3 @@
-import CartForMobile from "@/components/shared/CartForMobile";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import { Toaster } from "@/components/ui/sonner";
@@ -50,7 +49,6 @@ export default function RootLayout({
                                 <Header />
                                 {children}
                                 <Footer />
-                                <CartForMobile />
                             </Suspense>
                         </TokenExpirationContext>
                     </TanstackProvider>
