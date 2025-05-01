@@ -47,8 +47,8 @@ const Header = () => {
                         <Link href="/" className="font-montserrat text-lg font-semibold">
                             Home
                         </Link>
-                        <Link href="/" className="font-montserrat text-lg font-semibold">
-                            Catelog
+                        <Link href="/products" className="font-montserrat text-lg font-semibold">
+                            Products
                         </Link>
                         <Link href="/about" className="font-montserrat text-lg font-semibold">
                             About Us

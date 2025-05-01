@@ -73,7 +73,7 @@ const AuthUser = () => {
                                     {user && user.role === "ADMIN" && (
                                         <DropdownMenuItem asChild className="focus:bg-[#F8FAFC]">
                                             <Link
-                                                href="/dashboard"
+                                                href="/dashboard/products"
                                                 className="flex items-center gap-2 rounded-md border-2 border-gray-200 bg-white p-2 text-primary transition duration-300 ease-in-out hover:border-gray-400 hover:bg-[#F8FAFC]">
                                                 <LayoutDashboard size={20} className="text-black" />
                                                 <p className="text-sm font-medium text-gray-800">

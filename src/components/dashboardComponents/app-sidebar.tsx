@@ -45,27 +45,11 @@ const data = {
             url: "#",
             items: [
                 {
-                    title: "Homepage Banner",
+                    title: "All Banners",
                     url: "/dashboard/banners",
                 },
                 {
                     title: "File Conventions",
-                    url: "#",
-                },
-                {
-                    title: "Functions",
-                    url: "#",
-                },
-                {
-                    title: "next.config.js Options",
-                    url: "#",
-                },
-                {
-                    title: "CLI",
-                    url: "#",
-                },
-                {
-                    title: "Edge Runtime",
                     url: "#",
                 },
             ],
@@ -95,7 +79,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar {...props}>
             <SidebarHeader>
-                <p className="text-center text-3xl font-bold text-black italic">Lalon Store</p>
+                <Link href="/" className="text-center text-3xl font-bold text-black italic">SKB BEST</Link>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup className="pr-0">
