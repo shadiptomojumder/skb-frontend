@@ -35,7 +35,7 @@ const useLogout = () => {
 
         dispatch(setLoading(false)); // Set loading state to false
         // Redirect to home page
-        window.location.href = "/";
+        // window.location.href = "/";
     };
 
     return handleLogout;

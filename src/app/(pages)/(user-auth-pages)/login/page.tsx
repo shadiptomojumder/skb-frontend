@@ -62,7 +62,7 @@ const LoginPage = () => {
             if (response.statusCode === 200) {
                 toast.success("User successfully login");
                 reset();
-
+                router.push("/");
                 // Save user in Redux store
                 if (accesstoken) {
                     if (userData) {
@@ -73,7 +73,6 @@ const LoginPage = () => {
                 } else {
                     console.log("Access token is undefined");
                 }
-                router.push("/");
             }
         },
         onError: (error: APIError) => {

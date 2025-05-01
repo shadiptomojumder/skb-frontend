@@ -1,12 +1,10 @@
 "use client";
 import createBanner from "@/api/banners/createBanner";
-import CreateCategory from "@/api/categories/createCategory";
 import BannerImageSelector from "@/components/dashboardComponents/banner-image-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BannerFormData, bannerSchema } from "@/interfaces/banner.schemas";
-import { CategoryFormData, categorySchema } from "@/interfaces/category.schemas";
 import { ImageFile } from "@/interfaces/common.schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -131,9 +129,8 @@ const CategoryCreatePage = () => {
                                 )}
                             </div>
                         </div>
-                        
-                            <BannerImageSelector image={bannerImage} setImage={setBannerImage} />
-                        
+
+                        <BannerImageSelector image={bannerImage} setImage={setBannerImage} />
                     </section>
                 </section>
 

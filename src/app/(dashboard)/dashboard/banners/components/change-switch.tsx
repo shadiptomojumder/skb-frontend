@@ -1,5 +1,4 @@
 import updateBanners from "@/api/banners/updateBanners";
-import updateProduct from "@/api/products/updateProduct";
 import { Switch } from "@/components/ui/switch";
 import { APIError } from "@/interfaces/common.schemas";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

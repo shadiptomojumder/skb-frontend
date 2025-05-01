@@ -7,7 +7,6 @@ import { FileImage } from "lucide-react";
 import Image from "next/image";
 import takaIcon from "../../../../../public/icons/taka.png";
 import Actions from "./actions";
-import CnangeSwitch from "./change-switch";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
 export const columns: ColumnDef<Product>[] = [
@@ -168,51 +167,25 @@ export const columns: ColumnDef<Product>[] = [
             );
         },
     },
+
     // {
-    //     id: "createdAt",
-    //     accessorKey: "createdAt",
-    //     header: ({ column }) => <DataTableColumnHeader column={column} title="Created At" />,
+    //     id: "isFeatured",
+    //     accessorKey: "isFeatured",
+    //     header: () => <div>Featured Product</div>,
     //     cell: ({ row }) => {
-    //         const date = new Date(row.getValue("createdAt"));
-    //         return <div className="capitalize">{format(date, "dd MMMM yy")}</div>;
+    //         const productId = row.getValue("id");
+    //         const initialValue = row.getValue<boolean>("isFeatured");
+    //         //console.log("isFeatured", isFeatured);
+
+    //         return (
+    //             <CnangeSwitch
+    //                 fieldName={"isFeatured"}
+    //                 initialValue={initialValue}
+    //                 productId={productId as string}
+    //             />
+    //         );
     //     },
     // },
-    {
-        id: "isFeatured",
-        accessorKey: "isFeatured",
-        header: () => <div>Featured Product</div>,
-        cell: ({ row }) => {
-            const productId = row.getValue("id");
-            const initialValue = row.getValue<boolean>("isFeatured");
-            //console.log("isFeatured", isFeatured);
-
-            return (
-                <CnangeSwitch
-                    fieldName={"isFeatured"}
-                    initialValue={initialValue}
-                    productId={productId as string}
-                />
-            );
-        },
-    },
-    {
-        id: "isWeekendDeal",
-        accessorKey: "isWeekendDeal",
-        header: () => <div>Weekend Deal</div>,
-        cell: ({ row }) => {
-            const productId = row.getValue("id");
-            const initialValue = row.getValue<boolean>("isWeekendDeal");
-            //console.log("isWeekendDeal", isWeekendDeal);
-
-            return (
-                <CnangeSwitch
-                    fieldName={"isWeekendDeal"}
-                    initialValue={initialValue}
-                    productId={productId as string}
-                />
-            );
-        },
-    },
     {
         id: "id",
         accessorKey: "id",

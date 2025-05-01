@@ -5,8 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { GalleryVertical, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -17,8 +15,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import CnangeSwitch from "./components/change-switch";
 import { format } from "date-fns";
+import CnangeSwitch from "./components/change-switch";
 
 const BannerPage = () => {
     const { data: banners, isLoading } = useQuery({
@@ -72,35 +70,48 @@ const BannerPage = () => {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {banners && banners.length > 0 ?(banners.map((banner: IBanner, index: number) => (
-                                        <TableRow key={banner.id}>
-                                            <TableCell className="font-medium">
-                                                #{index + 1}
-                                            </TableCell>
-                                            <TableCell className="font-medium">
-                                                {banner.title}
-                                            </TableCell>
-                                            <TableCell>
-                                                <Image
-                                                    src={banner.image || "/placeholder.svg"}
-                                                    alt={banner.title}
-                                                    width={100}
-                                                    height={50}
-                                                    className="rounded-md aspect-video w-[150px] object-cover"
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                <CnangeSwitch bannerId={banner.id} fieldName="isActive" initialValue={banner.isActive}/>
-                                            </TableCell>
+                                    {banners && banners.length > 0 ? (
+                                        banners.map((banner: IBanner, index: number) => (
+                                            <TableRow key={banner.id}>
+                                                <TableCell className="font-medium">
+                                                    #{index + 1}
+                                                </TableCell>
+                                                <TableCell className="font-medium">
+                                                    {banner.title}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Image
+                                                        src={banner.image || "/placeholder.svg"}
+                                                        alt={banner.title}
+                                                        width={100}
+                                                        height={50}
+                                                        className="aspect-video w-[150px] rounded-md object-cover"
+                                                    />
+                                                </TableCell>
+                                                <TableCell>
+                                                    <CnangeSwitch
+                                                        bannerId={banner.id}
+                                                        fieldName="isActive"
+                                                        initialValue={banner.isActive}
+                                                    />
+                                                </TableCell>
 
-                                            <TableCell>
-                                            {banner.createdAt ? format(new Date(banner.createdAt), "dd/MM/yyyy") : "N/A"}
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                {/* <BannerActions banner={banner} /> */}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))):<></>}
+                                                <TableCell>
+                                                    {banner.createdAt
+                                                        ? format(
+                                                              new Date(banner.createdAt),
+                                                              "dd/MM/yyyy",
+                                                          )
+                                                        : "N/A"}
+                                                </TableCell>
+                                                <TableCell className="text-right">
+                                                    {/* <BannerActions banner={banner} /> */}
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    ) : (
+                                        <></>
+                                    )}
                                 </TableBody>
                             </Table>
                         </CardContent>
