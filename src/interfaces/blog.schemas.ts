@@ -7,6 +7,8 @@ export const blogSchema = z.object({
         .min(3, "Banner title must be at least 3 characters")
         .max(50, "Banner title not more than 50 characters")
         .trim(),
+    description: z.string().min(1, "Description is required"),
+    isActive: z.boolean().optional(),
     image: z.any().optional(),
 });
 
