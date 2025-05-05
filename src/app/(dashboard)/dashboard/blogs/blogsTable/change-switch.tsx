@@ -1,5 +1,4 @@
 import updateBlog from "@/api/blogs/updateBlog";
-import updateProduct from "@/api/products/updateProduct";
 import { Switch } from "@/components/ui/switch";
 import { APIError } from "@/interfaces/common.schemas";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
