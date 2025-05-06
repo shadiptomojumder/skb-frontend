@@ -1,6 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { IBlog } from "@/interfaces/blog.schemas";
+import { stripHtmlTags } from "@/utils/stripHtmlTags";
 import { ColumnDef } from "@tanstack/react-table";
 import { FileImage } from "lucide-react";
 import Image from "next/image";
@@ -82,12 +83,7 @@ export const columns: ColumnDef<IBlog>[] = [
         header: ({ column }) => <DataTableColumnHeader column={column} title="Description" />,
         cell: ({ row }) => {
             const description = row.getValue<string>("description");
-            return (
-                <div
-                    className="line-clamp-2 w-fit max-w-[450px] min-w-[200px] text-sm capitalize"
-                    dangerouslySetInnerHTML={{ __html: description }}
-                />
-            );
+            return <p className="line-clamp-2 text-black">{stripHtmlTags(description)}</p>;
         },
     },
 

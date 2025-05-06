@@ -21,6 +21,8 @@ const BlogEditPage = () => {
     const [initialBannerImage, setInitialBannerImage] = useState<string | null>(null);
     const [isImageChanged, setIsImageChanged] = useState(false);
     const [content, setContent] = useState("");
+    console.log("The content is:", content); // Debugging log
+    
     const [initialContent, setInitialContent] = useState("");
     const queryClient = useQueryClient();
     const router = useRouter();

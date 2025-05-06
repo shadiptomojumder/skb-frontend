@@ -11,6 +11,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 }
+.prose a {
+  color: rgb(0, 179, 255);
+  text-decoration: underline;
+}
 
 @layer base {
 

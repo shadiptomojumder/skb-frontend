@@ -28,7 +28,10 @@ const BlogCreatePage = () => {
         handleSubmit,
         formState: { errors },
         reset,
+        setValue,
     } = useForm<BlogFormData>({ resolver: zodResolver(blogSchema) });
+
+    console.log("Errors are: ", errors);
 
     const { mutate, isPending } = useMutation({
         mutationFn: createBlog,
@@ -62,10 +65,9 @@ const BlogCreatePage = () => {
     const onSubmit: SubmitHandler<BlogFormData> = async (data) => {
         const formData = new FormData();
 
-        // Append text fields
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key as keyof typeof data]);
-        });
+        if (data.title) {
+            formData.append("title", data.title);
+        }
 
         // Append banner image file if provided
         if (bannerImage) {
@@ -144,7 +146,15 @@ const BlogCreatePage = () => {
                             <Label htmlFor="title" className="text-base font-semibold">
                                 Blog Description <span className="text-red-600">*</span>
                             </Label>
-                            <TextEditor content={content} setContent={setContent} />
+                            <TextEditor
+                                content={content}
+                                setContent={(value) => {
+                                    setContent(value);
+                                    setValue("description", value as string, {
+                                        shouldValidate: true,
+                                    });
+                                }}
+                            />
                         </div>
                     </section>
 

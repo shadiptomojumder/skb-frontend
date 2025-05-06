@@ -1,8 +1,6 @@
 import { api } from "../api";
 
 const createBlog = async (data: FormData) => {
-    console.log("The Data in createBlog api is:", data);
-
     try {
         const response = await api.post(`/blogs`, data, {
             headers: { "Content-Type": "multipart/form-data" },

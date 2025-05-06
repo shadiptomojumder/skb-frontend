@@ -8,6 +8,7 @@ import { Montserrat, Roboto, Rubik } from "next/font/google";
 import { Suspense } from "react";
 import "../globals.css";
 import StoreProvider from "./StoreProvider";
+import { Loader } from "lucide-react";
 
 const roboto = Roboto({
     variable: "--font-roboto",
@@ -45,7 +46,7 @@ export default function RootLayout({
                 <StoreProvider>
                     <TanstackProvider>
                         <TokenExpirationContext>
-                            <Suspense fallback={<div>Loading search...</div>}>
+                            <Suspense fallback={<div className="h-dvh w-dvw flex justify-center items-center"><Loader className="animate-spin text-black" /></div>}>
                                 <Header />
                                 {children}
                                 <Footer />

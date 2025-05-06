@@ -13,6 +13,8 @@ const getBlogById = async ({ blogId }: { blogId: string }): Promise<IBlog> => {
         if (!response.data || !response.data.data) {
             throw new Error("Invalid API response: Missing blog data");
         }
+        console.log("Blog details API Response is:", response.data); // Log the blog data to the console
+        
 
         return response.data.data;
     } catch (error) {
