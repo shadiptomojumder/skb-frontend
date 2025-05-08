@@ -65,9 +65,9 @@ const ProductDetailsPage = () => {
                                 {product?.description}
                             </p>
 
-                            <button className="hover:bg-gray-350 w-full cursor-pointer rounded-full bg-gray-800 py-3 text-center font-bold text-white">
+                            {/* <button className="hover:bg-gray-350 w-full cursor-pointer rounded-full bg-gray-800 py-3 text-center font-bold text-white">
                                 Add to cart
-                            </button>
+                            </button> */}
                         </div>
                     )}
                 </section>

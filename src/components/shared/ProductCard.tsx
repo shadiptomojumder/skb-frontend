@@ -34,9 +34,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                     <AddToCartButton product={product} />
                 </div> */}
                 </section>
-                <div className="absolute right-3 bottom-20 flex h-10 w-10 items-center justify-center rounded-full border bg-gray-100 p-1 text-gray-500 sm:right-6 sm:bottom-28">
-                    <ShoppingBag size={24} />
-                </div>
+                
             </section>
         </Link>
     );

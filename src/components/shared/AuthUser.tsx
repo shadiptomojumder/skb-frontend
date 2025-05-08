@@ -28,7 +28,7 @@ const AuthUser = () => {
 
     return (
         <>
-            <Link
+            {/* <Link
                 href="/checkout"
                 className="relative rounded-md bg-accent p-2 text-black drop-shadow-lg">
                 <ShoppingCart size={20} />
@@ -39,7 +39,7 @@ const AuthUser = () => {
                 ) : (
                     <></>
                 )}
-            </Link>
+            </Link> */}
             {isLoading ? (
                 <div>User Loading...</div>
             ) : (
