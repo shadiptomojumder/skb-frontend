@@ -8,16 +8,13 @@ import {
 import useLogout from "@/hooks/useLogout ";
 import { setLoading } from "@/lib/slices/userSlice";
 import { RootState } from "@/lib/store";
-import { CircleUser, LayoutDashboard, LogOut, ShoppingCart, User } from "lucide-react";
+import { CircleUser, LayoutDashboard, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const AuthUser = () => {
     const { user, isLoading } = useSelector((state: RootState) => state.user);
-    const { items } = useSelector((state: RootState) => state.cart);
-    // console.log("Redux User is:", user);
-    // console.log("Redux isLoading is:", isLoading);
     const handleLogout = useLogout();
     const dispatch = useDispatch();
 
@@ -51,11 +48,9 @@ const AuthUser = () => {
                                     {/* <div className="flex cursor-pointer items-center gap-1.5 rounded-md bg-accent p-2 text-sm font-semibold text-primary">
                                         <CircleUser size={20} /> <span className="hidden sm:block">Shadipto</span>
                                     </div> */}
-                                    <div className="sm:flex hidden cursor-pointer items-center gap-1.5 rounded-full bg-accent p-0 text-sm font-semibold text-black drop-shadow-lg sm:rounded-md sm:p-2">
+                                    <div className="hidden cursor-pointer items-center gap-1.5 rounded-full bg-accent p-0 text-sm font-semibold text-black drop-shadow-lg sm:flex sm:rounded-md sm:p-2">
                                         <CircleUser className="h-[35px] w-[35px] sm:h-[20px] sm:w-[20px]" />{" "}
-                                        <span className="capitalize">
-                                            {user?.firstName}
-                                        </span>
+                                        <span className="capitalize">{user?.firstName}</span>
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="z-[2255] grid w-56 gap-1.5 p-2">

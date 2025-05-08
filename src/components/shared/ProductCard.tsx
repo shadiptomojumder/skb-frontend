@@ -1,5 +1,4 @@
 import { Product } from "@/interfaces/product.schemas";
-import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatPrice } from "../../utils/fomatPrice";
@@ -34,7 +33,6 @@ const ProductCard = ({ product }: { product: Product }) => {
                     <AddToCartButton product={product} />
                 </div> */}
                 </section>
-                
             </section>
         </Link>
     );
